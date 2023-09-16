@@ -3,7 +3,7 @@
         height="130">
 </p>
 
-<p align="center">Top Languagem<br><br>
+<p align="center">Top Linguagem<br><br>
     <a href="#"><img src="https://img.shields.io/github/languages/top/thiagorufino1/thiagorufino1?logo=powershell&logoColor=white"/></a>
 </p>
 
