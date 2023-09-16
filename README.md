@@ -1,6 +1,6 @@
 <p align="center">
     <img src="img/logo.png"
-        height="200">
+        height="130">
 </p>
 
 <p align="center">Top Languagem<br><br>
@@ -17,7 +17,6 @@
     <a href="#"><img src="https://img.shields.io/github/commit-activity/t/thiagorufino1/thiagorufino1"/></a>
     <a href="#"><img src="https://img.shields.io/github/last-commit/thiagorufino1/thiagorufino1/main?color=blue"/></a>
     <a href="#"><img src="https://img.shields.io/github/sponsors/thiagorufino1"/></a>
-    <a href="#"><img src="https://img.shields.io/github/languages/code-size/thiagorufino1/thiagorufino1"/></a>
     <a href="#"><img src="https://img.shields.io/github/directory-file-count/thiagorufino1/thiagorufino1"/></a>
     <a href="#"><img src="https://img.shields.io/github/followers/thiagorufino1"/></a>
     <a href="#"><img src="https://img.shields.io/github/forks/thiagorufino1/thiagorufino1"/></a>
