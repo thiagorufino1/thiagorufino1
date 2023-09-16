@@ -1,14 +1,12 @@
-<p align="center">
-    <img src="https://raw.githubusercontent.com/badges/shields/master/readme-logo.svg?sanitize=true"
-        height="130">
+<p align="left">
+    <img src="img/logo.png"
+        height="200">
 </p>
 
-#### Top Linguagem Utilizada
+#### Top Linguagem
 <p align="left">
     <a href="#"><img src="https://img.shields.io/github/languages/top/thiagorufino1/thiagorufino1?logo=powershell&logoColor=white"/></a>
 </p>
-
-
 
 #### Contato
 <p align="left">
@@ -17,7 +15,7 @@
     <a href="#"><img src="https://img.shields.io/badge/thiagorufino.com-%20?labelColor=%23215F9A&color=%23215F9A&link=https%3A%2F%2Fthiagorufino.com%2F"/></a>
 </p>
 
-#### Estatisticas
+#### Estatísticas
 <p align="left">
     <a href="#"><img src="https://img.shields.io/github/commit-activity/t/thiagorufino1/thiagorufino1"/></a>
     <a href="#"><img src="https://img.shields.io/github/last-commit/thiagorufino1/thiagorufino1"/></a>
