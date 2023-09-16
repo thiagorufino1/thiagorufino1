@@ -1,16 +1,14 @@
-### Hi there 👋
-
 <!--
-**thiagorufino1/thiagorufino1** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
-Here are some ideas to get you started:
+Shield com cor
+https://img.shields.io/github/last-commit/thiagorufino1/thiagorufino1?color=ff0000
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
 -->
+<p align="center">
+    <img src="https://raw.githubusercontent.com/badges/shields/master/readme-logo.svg?sanitize=true"
+        height="130">
+</p>
+<p align="center">
+    <a href="#"><img src="https://img.shields.io/github/commit-activity/t/thiagorufino1/thiagorufino1"/></a>
+    <a href="#"><img src="https://img.shields.io/github/last-commit/thiagorufino1/thiagorufino1"/></a>
+</p>
