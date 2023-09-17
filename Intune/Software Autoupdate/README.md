@@ -1,6 +1,6 @@
 # Atualização Automática de Softwares com Intune e Winget.
 
-Um dos grandes desafios enfrentados pelas empresas é manter um ambiente de workstations com softwares padronizados e atualizados, garantindo a segurança da infraestrutura. Os fabricantes constantemente lançam novas versões para corrigir vulnerabilidades, o que demanda esforços significativos da equipe de TI. O objetivo deste artigo é apresentar uma alternativa para automatizar o processo de atualização de softwares.
+Um dos grandes desafios enfrentados pelas empresas é manter o ambiente de workstations com softwares padronizados e atualizados, garantindo a segurança da infraestrutura. Os fabricantes constantemente lançam novas versões para corrigir vulnerabilidades, o que demanda esforços significativos da equipe de TI. O objetivo deste artigo é apresentar uma alternativa para automatizar o processo de atualização de softwares.
 
 Este artigo demonstrará como automatizar o processo utilizando o recurso remediação do Intune, em conjunto com um template ADMX para estabelecer políticas que facilitam a seleção dos softwares elegíveis para atualização e a configuração do nível de notificação desejado.
 <br>
