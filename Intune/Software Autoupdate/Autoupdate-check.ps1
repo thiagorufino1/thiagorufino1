@@ -25,7 +25,7 @@ function Write-WingetLog {
         [string]$Classificacao
     );
 
-    $LogDir = "C:\Temp\Autoupdate\Autoupdate.log"
+    $LogDir = "C:\Temp\Software-Autoupdate\Autoupdate.log"
 
     if (!(Test-Path $LogDir)) {
         New-Item -Path $LogDir -ItemType File -Force
