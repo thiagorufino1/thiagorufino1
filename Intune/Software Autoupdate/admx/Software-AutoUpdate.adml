@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Software Autoupdate</displayName>
+  <description>Software Autoupdate</description>
+  <resources>
+    <stringTable>
+      <string id="SAU">Software Autoupdate</string>
+      <string id="Configuration">Configurações</string>
+      <string id="SupportedOn">Windows 10 and Windows 11</string>
+
+      <string id="ListDisplayName">Softwares Permitidos</string>
+      <string id="ListexplainText">Adicione os IDs dos softwares (Winget) que estão autorizados a receber atualizações.</string>
+
+      <string id="NotificationLeveldisplayName">Nível de Notificação</string>
+      <string id="NotificationLevelexplainText">Especifique o nível de notificação:
+
+Todos: Exibe todas as notificações (Padrão).
+Somente Sucesso: Mostra notificações apenas após atualização bem-sucedida.
+Nenhum: Não exibe notificações.</string>
+      <string id="NotificationLevelFull">Todos</string>
+      <string id="NotificationLevelSuccessOnly">Somente Sucesso</string>
+      <string id="NotificationLevelNone">Nenhum</string>
+
+    </stringTable>
+    <presentationTable>
+
+      <presentation id="ListPresentation">
+        <listBox refId="List">Lista de IDs</listBox>
+      </presentation>
+
+      <presentation id="NotificationLevelPresentation">
+        <dropdownList refId="NotificationLevel">Nível de Notificação</dropdownList>
+      </presentation>
+
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

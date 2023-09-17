@@ -1,4 +1,4 @@
-<#
+﻿<#
     .DESCRIPTION
         O Script tem como objetivo automatizar a atualização de softwares utilizando Winget.
 

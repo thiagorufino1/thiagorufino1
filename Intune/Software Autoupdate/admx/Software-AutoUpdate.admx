@@ -1,0 +1,53 @@
+<policyDefinitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" xsi:schemaLocation="" schemaVersion="1.0" xmlns="http://www.microsoft.com/GroupPolicy/PolicyDefinitions">
+	<policyNamespaces>
+		<target prefix="Software-AutoUpdate" namespace="Software-AutoUpdate.Configuration.Policies"/>
+	</policyNamespaces>
+	<resources minRequiredRevision="1.0" fallbackCulture="en-us"/>
+	<supportedOn>
+		<definitions>
+			<definition name="SupportedOn" displayName="$(string.SupportedOn)"/>
+		</definitions>
+	</supportedOn>
+	<categories>
+      <category name="SAU" displayName="$(string.SAU)"/>
+      <category name="Configuration" displayName="$(string.Configuration)">
+        <parentCategory ref="SAU" />
+      </category>
+    </categories>
+
+<policies>
+    <!-- Nível de notificação -->
+    <policy name="Software-AutoUpdate-NotificationLevel" class="Machine" displayName="$(string.NotificationLeveldisplayName)" explainText="$(string.NotificationLevelexplainText)" presentation="$(presentation.NotificationLevelPresentation)" key="SOFTWARE\Policies\SoftwareAutoupdate\Aviso">
+      <parentCategory ref="Configuration"/>
+      <supportedOn ref="SupportedOn"/>
+      <elements>
+        <enum id="NotificationLevel" valueName="Nivel">
+          <item displayName="$(string.NotificationLevelFull)">
+            <value>
+              <string>Todos</string>
+            </value>
+          </item>
+          <item displayName="$(string.NotificationLevelSuccessOnly)">
+            <value>
+              <string>Sucesso</string>
+            </value>
+          </item>
+          <item displayName="$(string.NotificationLevelNone)">
+            <value>
+              <string>Nenhum</string>
+            </value>
+          </item>
+        </enum>
+      </elements>
+    </policy>
+
+    <!-- Adicione os IDs dos softwares (Software) que estão autorizados a receber atualizações. -->
+    <policy name="Software-AutoUpdate-List" class="Machine" displayName="$(string.ListDisplayName)" explainText="$(string.ListexplainText)" presentation="$(presentation.ListPresentation)" key="SOFTWARE\Policies\SoftwareAutoupdate">
+      <parentCategory ref="Configuration"/>
+      <supportedOn ref="SupportedOn"/>
+      <elements>
+        <list id="List" key="SOFTWARE\Policies\SoftwareAutoupdate\Permitidos" valuePrefix=""/>
+      </elements>
+    </policy>
+  </policies>
+</policyDefinitions>

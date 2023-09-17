@@ -1,4 +1,4 @@
-<#
+﻿<#
     .DESCRIPTION
         O Script tem como objetivo automatizar a atualização de softwares utilizando Winget.
 
@@ -183,6 +183,31 @@ function Get-AppsPermitidos {
     }
 }
 
+function Get-Aviso {
+
+    if (Test-Path "HKLM:\SOFTWARE\Policies\SoftwareAutoupdate\Aviso") {
+
+        $Key = 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\SoftwareAutoupdate\Aviso'
+        $ValueNames = (Get-Item -Path "HKLM:\SOFTWARE\Policies\SoftwareAutoupdate\Aviso").Property
+
+        $AppList = @()
+
+        foreach ($ValueName in $ValueNames) {
+            $AppIDs = [Microsoft.Win32.Registry]::GetValue($Key, $ValueName, $false)
+            $AppList += $AppIDs
+        }
+    }
+
+    if($AppList){
+        Write-WingetLog -Mensagem "Nível de notificação: $AppList." -Componente "GPO" -Classificacao Informação
+    } else {
+        Write-WingetLog -Mensagem "Nível de notificação: Todos." -Componente "GPO" -Classificacao Informação
+    }
+
+    return $AppList
+
+}
+
 Function Confirm-Update {
 
     param (
@@ -213,24 +238,25 @@ Function Confirm-Update {
 function Set-Notificacao {
 
     param (
-        $AppName,
-        $AppAvailable
+        $Icone,
+        $Titulo,
+        $Mensagem
     )
 
     [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
 
     $notify = New-Object System.Windows.Forms.NotifyIcon
     $notify.Icon = [System.Drawing.SystemIcons]::Warning
-    $notify.BalloonTipIcon = [System.Windows.Forms.ToolTipIcon]::Info
-    $notify.BalloonTipText = "Nova versão: $AppAvailable."
-    $notify.BalloonTipTitle = "$AppName foi atualizado !"
+    $notify.BalloonTipIcon = [System.Windows.Forms.ToolTipIcon]::$Icone
+    $notify.BalloonTipText = $Mensagem
+    $notify.BalloonTipTitle = $Titulo
     $notify.Visible = $true
     
     # Exiba a notificação de balão por 5 segundos (5000 milissegundos)
-    $notify.ShowBalloonTip(5000)
+    $notify.ShowBalloonTip(10000)
     
     # Aguarde um pouco antes de limpar e fechar a notificação
-    Start-Sleep -Seconds 6
+    Start-Sleep -Seconds 11
     
     # Limpe e feche o objeto de notificação de balão
     $notify.Dispose()
@@ -242,6 +268,7 @@ function Update-Apps {
     $WingetStatus = Get-WingetStatus
     $AppsToUpdate = Get-AppUpdateAvailable
     $Permitidos = Get-AppsPermitidos
+    $Aviso = Get-Aviso
 
     if (($null -eq $AppsToUpdate) -or (!$WingetStatus)) {
 
@@ -275,10 +302,18 @@ function Update-Apps {
 
                 if ($StatusInstallation) {
                     Write-WingetLog -Mensagem "Software $AppName atualizado para versão $AppAvailable com sucesso." -Componente "Atualizar Software" -Classificacao Informação
-                    Set-Notificacao -AppName $AppName -AppAvailable $AppAvailable
+
+                    if($Aviso -ne "Nenhum"){
+                        Set-Notificacao -Icone Info -Titulo "$AppName foi atualizado !" -Mensagem "Nova versão: $AppAvailable."
+                    }
+                    
                 }
                 else {
                     Write-WingetLog -Mensagem "Falha ao atualizar o Software $AppName para versão $AppAvailable." -Componente "Atualizar Software" -Classificacao Erro
+
+                    if(($Aviso -eq "Todos") -or (!$Aviso)){
+                        Set-Notificacao -Icone Error -Titulo "$AppName não foi atualizado !" -Mensagem "Erro ao atualizar para versão $AppAvailable."
+                    }
                 }
             }
             else {
