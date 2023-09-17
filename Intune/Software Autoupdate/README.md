@@ -2,15 +2,15 @@
 
 Um dos grandes desafios enfrentados pelas empresas é manter um ambiente de workstations com softwares padronizados e atualizados, garantindo a segurança da infraestrutura. Os fabricantes constantemente lançam novas versões para corrigir vulnerabilidades, o que demanda esforços significativos da equipe de TI. O objetivo deste artigo é apresentar uma alternativa para automatizar o processo de atualização de softwares.
 
-Este artigo demonstrará como automatizar o processo utilizando o recurso de `remediação` do Intune, em conjunto com um template ADMX para estabelecer políticas que facilitam a seleção dos softwares elegíveis para atualização e a configuração do nível de notificação desejado.
+Este artigo demonstrará como automatizar o processo utilizando o recurso remediação do Intune, em conjunto com um template ADMX para estabelecer políticas que facilitam a seleção dos softwares elegíveis para atualização e a configuração do nível de notificação desejado.
 <br>
 <br>
 
 # Configurações
 <br>
 
-## ADMX
-### Lista de Softwares permitidos
+# ADMX
+# Lista de Softwares permitidos
 
 Nesta configuração, você adiciona o ID do aplicativo ao Winget.
 <p align="center">
@@ -28,7 +28,7 @@ winget search "Google Chrome"
     <img src="img/exemplo-get-id-winget.png" height="250">
 </p>
 
-### Nível de Notificação
+# Nível de Notificação
 
 <p align="center">
     <img src="img/admx-nivel-notificacao.png">
@@ -46,7 +46,7 @@ Especifique o nível de notificação dentre as 3 opções abaixo:
 </p>
 
 
-### Log
+# Log
 Durante a execução do script, um arquivo de log é gerado para registrar as ações, o qual pode ser encontrado em `C:\Temp\Software-Autoupdate\Autoupdate.log`.
 
 <p align="center">
