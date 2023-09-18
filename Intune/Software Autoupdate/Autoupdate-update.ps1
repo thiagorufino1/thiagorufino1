@@ -65,17 +65,17 @@ function Get-WingetStatus {
             $WingetVer = & $Winget --version
     
             Write-WingetLog -Mensagem "Winget Encontrado! Versão: $WingetVer" -Componente "Verificar Winget" -Classificacao Informação
-            return $true
+    
         }
         else {
             Write-WingetLog -Mensagem "Winget não encontrado !" -Componente "Verificar Winget" -Classificacao Alerta
-            
+            exit 0
         }
     
     }
     else {
         Write-WingetLog -Mensagem "Winget não encontrado !" -Componente "Verificar Winget" -Classificacao Alerta
-        
+        exit 0
     }
 }
 
