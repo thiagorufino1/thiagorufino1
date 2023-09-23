@@ -20,30 +20,35 @@ Em resumo, as notificações para senhas prestes a expirar são uma abordagem in
 
 # Pre-requisitos
 
-* App Registration<br>
+* **App Registration**<br>
     - Criar App
-        - Abrir **portal.azure.com**
+        - Abrir **portal.azure.com** 
         - Navegue ate **App Registrations**
         - Selecione **New registration**
         - Adicione o nome para o App e marque a opção **"Accounts in this organizational directory only"**
         - Clique em **Register**
-<br><br>
-    - Permissões da API <br>
-    Agora vamos atribuir as permissões necessarias para que o aplicativo
+    <br><br>
+        - Permissões da API <br>
+        Agora vamos atribuir as permissões necessarias para que o aplicativo
+    <br><br>
+    <p align="center">
+        <img src="img/api-permissions.png" height="400">
+    </p>
 
-<p align="center">
-    <img src="Intune/Password Change Notification/img/api-permissions.png" height="250">
-</p>
-
-<br><br>
-
-    - Certificados e Segredos
+    - Certificados e Segredos <br>
     Nessa etapa vamos criar a senha que iremos utilizar para autenticação.
 
-    "img"
+    <p align="center">
+        <img src="img/certificates-secrets.png" height="400">
+    </p>
 
-* Imagens
+* **Imagens**<br>
+Para que o script (remediação) possa realizar o download das imagens do banner e do logotipo, é necessário armazená-las em um repositório público. Uma recomendação é utilizar um serviço de armazenamento em nuvem, como o Azure Blob Storage.<br>
+No meu cenário, optei por utilizar o meu próprio site como repositório.
 
+<p align="center">
+        <img src="img/imagem-repositorio.png" height="65">
+</p>
 
 <br>
 <br>
