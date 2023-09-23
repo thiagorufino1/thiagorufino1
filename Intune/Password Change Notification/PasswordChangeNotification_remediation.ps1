@@ -52,6 +52,7 @@ $User = Invoke-RestMethod -Method Get -Uri $apiUrl -Headers $headers
 
 # Extrai a data da última alteração de senha e a converte em um formato utilizável
 $LastPasswordChangeDate = $User.value.lastPasswordChangeDateTime
+$DisplayName = $User.value.displayName
 $ConvertData = [System.DateTimeOffset]::ParseExact($LastPasswordChangeDate, "yyyy-MM-ddTHH:mm:ssZ", [System.Globalization.CultureInfo]::InvariantCulture)
 
 # Calcula a data da próxima alteração de senha

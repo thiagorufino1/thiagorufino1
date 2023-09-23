@@ -48,7 +48,7 @@ $headers = @{
 }
 
 # Obtém informações do usuário correspondente
-$User = Invoke-RestMethod -Method Get -Uri $apiUrl -Headers $headers
+$User = Invoke-RestMethod -Method Get -Uri $apiUrl -Headers $headers -ErrorAction SilentlyContinue
 
 # Extrai a data da última alteração de senha e a converte em um formato utilizável
 $LastPasswordChangeDate = $User.value.lastPasswordChangeDateTime
@@ -62,7 +62,10 @@ $CurrentDate = Get-Date
 [int]$DaysRemaining = ($NextPasswordChangeDate - $CurrentDate).Days
 
 # Verifica se a senha está prestes a expirar
-if ($DaysRemaining -le $DaysRemainingAlert) { 
+if (!$LastPasswordChangeDate){
+    Exit 0
+}
+elseif ($DaysRemaining -le $DaysRemainingAlert) { 
     
     Exit 1
 }

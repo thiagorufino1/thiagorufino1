@@ -1,5 +1,5 @@
 <p align="center">
-        <img src="img/toast-notification.png" height="500">
+        <img src="img/toast-notification.png" height="600">
 </p>
 <br><br>
 
@@ -121,3 +121,19 @@ No meu cenário, optei por utilizar o meu próprio site como repositório.
         </p>
     - Next
     - Create
+<br><br>
+# Experiência<br>
+Em resumo, o usuário receberá uma notificação informativa, incentivando-o a manter a segurança de sua conta, alterando a senha quando necessário. Essa abordagem proporciona aos usuários a oportunidade de agir prontamente, reduzindo a necessidade de intervenção da equipe de suporte e garantindo a conformidade com as políticas de segurança da organização.<br><br>
+
+<p align="center">
+        <img src="img/toast-notification.png" height="600">
+</p>
+
+Neste cenário, quando o usuário clicar no botão "Alterar Agora", será redirecionado para o Portal de Autoatendimento de Redefinição de Senha (SSPR).<br>
+Você tem a flexibilidade de personalizar o botão de acordo com suas preferências.
+
+<p align="center">
+        <img src="img/troca-senha.png" height="600">
+</p>
+
+[Leia mais sobre SSPR aqui.](https://learn.microsoft.com/pt-br/azure/active-directory/authentication/tutorial-enable-sspr)
