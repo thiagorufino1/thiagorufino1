@@ -62,8 +62,11 @@ No meu cenário, optei por utilizar o meu próprio site como repositório.
 
 * Script de Detecção: [Autoupdate-check.ps1](https://github.com/thiagorufino1/thiagorufino1/blob/d8aef69b1815a45f97ce17a389942ad401d2d233/Intune/Software%20Autoupdate/Autoupdate-check.ps1)<br>
 
-    * Credenciais
-        - dsds
+    * Credenciais<br>
+    A próxima etapa envolve a integração das informações obtidas no App Registrations que criamos anteriormente. Isso permitirá que o script consulte as informações de alterações de senha do usuário via API.
+        <p align="center">
+        <img src="img/credenciais.png" height="90">
+        </p>
 
     * Variaveis
         - **$PasswordExpirationDays:** Este valor define o intervalo de dias em que o usuário é obrigado a alterar a sua senha.
