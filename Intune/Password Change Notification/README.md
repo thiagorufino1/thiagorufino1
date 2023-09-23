@@ -1,3 +1,8 @@
+<p align="center">
+        <img src="img/toast-notification.png" height="500">
+</p>
+<br><br>
+
 # Notificações automáticas para lembretes de expiração de senha.
 
 Em um mundo cada vez mais digital, a segurança das informações é uma prioridade essencial para qualquer organização. Uma parte crítica dessa segurança está relacionada à gestão de senhas. Senhas fortes e atualizadas regularmente são um dos principais pilares da proteção dos dados.
@@ -27,8 +32,8 @@ Em resumo, as notificações para senhas prestes a expirar são uma abordagem in
         - Selecione **New registration**
         - Adicione o nome para o App e marque a opção **"Accounts in this organizational directory only"**
         - Clique em **Register**
-    <br><br>
-        - Permissões da API <br>
+        <br><br>
+    - Permissões da API <br>
         Agora vamos atribuir as permissões necessarias para que o aplicativo
     <br><br>
     <p align="center">
@@ -53,4 +58,13 @@ No meu cenário, optei por utilizar o meu próprio site como repositório.
 <br>
 <br>
 
-# Configuração
+# Configurações
+
+* Script de Detecção: [Autoupdate-check.ps1](https://github.com/thiagorufino1/thiagorufino1/blob/d8aef69b1815a45f97ce17a389942ad401d2d233/Intune/Software%20Autoupdate/Autoupdate-check.ps1)<br>
+
+    * Credenciais
+        - dsds
+
+    * Variaveis
+        - **$PasswordExpirationDays:** Este valor define o intervalo de dias em que o usuário é obrigado a alterar a sua senha.
+        - **$DaysRemainingAlert:** Indica a quantidade de dias restantes antes que as notificações comecem a ser exibidas para o usuário. 
