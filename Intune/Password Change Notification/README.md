@@ -113,7 +113,8 @@ No meu cenário, optei por utilizar o meu próprio site como repositório.
     Definir "Yes" para as opções "Run this script using the logged-on credentials" e "Run script in 64-bit PowerShell"<br><br>
         <p align="left">
         <img src="img/intune-remediation-settings.png" height="460">
-        </p>    
+        </p>
+    - Next   
     - Escolha o grupo no qual deseja implementar essa configuração e defina a frequência com que o script será executado nos dispositivos desse grupo.<br><br>
         <p align="left">
         <img src="img/intune-remediation-assigments.png" height="400">
