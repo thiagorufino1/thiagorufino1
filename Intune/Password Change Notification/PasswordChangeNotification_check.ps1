@@ -1,3 +1,15 @@
+﻿<#
+    .DESCRIPTION
+        Notificações automáticas para lembretes de expiração de senha.
+
+    .NOTES
+        Criado por: Thiago Rufino
+        thiagorufino.com
+
+        Data: 23/09/2023
+        Version: 1.0
+#>
+
 # Define as informações de autenticação do aplicativo no Azure AD
 $clientId = ""
 $clientSecret = ""

@@ -1,3 +1,15 @@
+﻿<#
+    .DESCRIPTION
+        Notificações automáticas para lembretes de expiração de senha.
+
+    .NOTES
+        Criado por: Thiago Rufino
+        thiagorufino.com
+
+        Data: 23/09/2023
+        Version: 1.0
+#>
+
 # Define as informações de autenticação do aplicativo no Azure AD
 $clientId = ""
 $clientSecret = ""
@@ -23,8 +35,8 @@ $tokenResponse = Invoke-RestMethod -Method Post -Uri $authUrl -Body $body
 $accessToken = $tokenResponse.access_token
 
 # Prefixo do nome de usuário local para procurar
-#$LocalUser = $env:USERNAME + '@'
-$LocalUser = 'thiago@'
+$LocalUser = $env:USERNAME + '@'
+#$LocalUser = 'thiago@'
 
 # Constrói a URL da API do Microsoft Graph para listar usuários
 $apiUrl = "https://graph.microsoft.com/v1.0/users?`$select=id,displayName,userPrincipalName,lastPasswordChangeDateTime&`$filter=startsWith(userPrincipalName,'$($LocalUser)')"
@@ -86,7 +98,7 @@ function Display-ToastNotification() {
     }
 }
 
-# Reproduzir áudio personalizado, se configurado
+
 $TitleText = "Aviso de Expiração de Senha"
 $BodyText1 = "Sua senha irá expirar em $DaysRemaining dias."
 $BodyText2 = "Para manter a segurança da sua conta e garantir o acesso contínuo aos nossos serviços, recomendamos que você altere sua senha o mais rápido possível."
