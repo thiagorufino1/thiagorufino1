@@ -54,39 +54,70 @@ function Write-WingetLog {
 }
 
 function Get-WingetStatus {
+    $WingetPackage = Get-AppxPackage -Name "Microsoft.DesktopAppInstaller"
+    $WingetPatch = Test-Path $WingetPackage.InstallLocation
 
-    $ResolveWingetPath = Resolve-Path "$env:ProgramFiles\WindowsApps\Microsoft.DesktopAppInstaller_*_*__8wekyb3d8bbwe" -ErrorAction SilentlyContinue | Sort-Object { [version]($_.Path -replace '^[^\d]+_((\d+\.)*\d+)_.*', '$1') }
-    if ($ResolveWingetPath) {
-        $WingetPath = $ResolveWingetPath[-1].Path
-        if (Test-Path "$WingetPath\winget.exe") {
-            $Script:Winget = "$WingetPath\winget.exe"
-    
-            & $Winget list --accept-source-agreements --source winget | Out-Null
-            $WingetVer = & $Winget --version
-    
-            Write-WingetLog -Mensagem "Winget Encontrado! Versão: $WingetVer" -Componente "Verificar Winget" -Classificacao Informação
-            Return $true
+    if ($WingetPatch -eq "true") {
+        
+        $WingetDir = $WingetPackage.InstallLocation
+        $Winget = $WingetDir + "\Winget.exe"
+
+        & $Winget list --accept-source-agreements --source winget | Out-Null
+        $WingetVer = & $Winget --version
+
+        Write-WingetLog -Mensagem "Winget Encontrado! Versão: $WingetVer" -Componente "Verificar Winget" -Classificacao Informação
+
+        $upgradeResult = & $Winget upgrade --source winget | Out-String
+
+        return $Winget
+
+    } else {
+        Write-WingetLog -Mensagem "Winget não encontrado !" -Componente "Verificar Winget" -Classificacao Alerta
+
+        Write-WingetLog -Mensagem "Iniciando o download do Winget e componentes." -Componente "Verificar Winget" -Classificacao Alerta
+        $progressPreference = 'silentlyContinue'
+        Invoke-WebRequest -Uri "https://aka.ms/getwinget" -OutFile "C:\Temp\Software-Autoupdate\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+        Invoke-WebRequest -Uri "https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx" -OutFile "C:\Temp\Software-Autoupdate\Microsoft.VCLibs.x64.14.00.Desktop.appx"
+        Invoke-WebRequest -Uri "https://github.com/microsoft/microsoft-ui-xaml/releases/download/v2.7.3/Microsoft.UI.Xaml.2.7.x64.appx" -OutFile "C:\Temp\Software-Autoupdate\Microsoft.UI.Xaml.2.7.x64.appx"
+
+        Write-WingetLog -Mensagem "Iniciando a instalação Winget e componentes." -Componente "Verificar Winget" -Classificacao Alerta
+        Add-AppxPackage "C:\Temp\Software-Autoupdate\Microsoft.VCLibs.x64.14.00.Desktop.appx" -ErrorAction SilentlyContinue
+        Add-AppxPackage "C:\Temp\Software-Autoupdate\Microsoft.UI.Xaml.2.7.x64.appx" -ErrorAction SilentlyContinue
+        Add-AppxPackage "C:\Temp\Software-Autoupdate\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -ErrorAction SilentlyContinue
+
+        Start-Sleep 30
+
+        $WingetPackage = Get-AppxPackage -Name "Microsoft.DesktopAppInstaller"
+
+        if ($WingetPackage) {
+            Write-WingetLog -Mensagem "Winget instalado com sucesso." -Componente "Verificar Winget" -Classificacao Alerta
+            
+            if (!($upgradeResult -match "-----")) {
+                Write-WingetLog -Mensagem "Nenhuma atualização disponível." -Componente "Verificar Atualizações" -Classificacao Alerta
+
+            }
+            else {
+
+            }
+
         }
         else {
-            Write-WingetLog -Mensagem "Winget não encontrado !" -Componente "Verificar Winget" -Classificacao Alerta
-            
+            Write-WingetLog -Mensagem "Falha ao instalar Winget." -Componente "Verificar Winget" -Classificacao Alerta
+
         }
-    
-    }
-    else {
-        Write-WingetLog -Mensagem "Winget não encontrado !" -Componente "Verificar Winget" -Classificacao Alerta
-        
     }
 }
 
 function Get-AppUpdateAvailable {
-    $null = Get-WingetStatus
+    
     class Software {
         [string]$Name
         [string]$Id
         [string]$Version
         [string]$AvailableVersion
     }
+
+    $Winget = Get-WingetStatus
 
     $upgradeResult = & $Winget upgrade --source winget | Out-String
 
@@ -246,7 +277,7 @@ function Set-Notificacao {
     [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
 
     $notify = New-Object System.Windows.Forms.NotifyIcon
-    $notify.Icon = [System.Drawing.SystemIcons]::Warning
+    $notify.Icon = [System.Drawing.SystemIcons]::Information
     $notify.BalloonTipIcon = [System.Windows.Forms.ToolTipIcon]::$Icone
     $notify.BalloonTipText = $Mensagem
     $notify.BalloonTipTitle = $Titulo
@@ -265,14 +296,12 @@ function Set-Notificacao {
 
 function Update-Apps {
 
-    $WingetStatus = Get-WingetStatus
+    $Winget = Get-WingetStatus
     $AppsToUpdate = Get-AppUpdateAvailable
     $Permitidos = Get-AppsPermitidos
     $Aviso = Get-Aviso
 
-    if (($null -eq $AppsToUpdate) -or (!$WingetStatus)) {
-
-    }
+    if (($null -eq $AppsToUpdate) -or (!$Winget)) {}
     else {
 
         foreach ($AppToUpdate in $AppsToUpdate) {
@@ -296,7 +325,7 @@ function Update-Apps {
 
             if ($isAllowApps) {
                 Write-WingetLog -Mensagem "Iniciando a atualização do software $AppName da versão $AppVersion para $AppAvailable." -Componente "Atualizar Software" -Classificacao Informação
-                & Winget upgrade --id $AppID --accept-package-agreements --accept-source-agreements --silent --force --disable-interactivity
+                & $Winget upgrade --id $AppID --accept-package-agreements --accept-source-agreements --silent --force --disable-interactivity
 
                 $StatusInstallation = Confirm-Update -AppID $AppID -AppVersion $AppAvailable
 
