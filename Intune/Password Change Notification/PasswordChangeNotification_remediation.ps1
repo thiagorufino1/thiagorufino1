@@ -63,10 +63,12 @@ $CurrentDate = Get-Date
 [int]$DaysRemaining = ($NextPasswordChangeDate - $CurrentDate).Days
 
 # Configuração de imagens e notificação
+# 1788 x 889
 $HeroImageFile = "http://thiagorufino.com/wp-content/uploads/2023/09/HeroImage.png"
+# 240 x 240
 $LogoImageFile = "http://thiagorufino.com/wp-content/uploads/2023/09/logo_tr.png"
 $HeroImageName = "HeroImage.png"
-$LogoImageName = "logo.png"
+$LogoImageName = "logo_tr.png"
 $Action = "https://passwordreset.microsoftonline.com/"
 
 # Função para exibir a notificação
