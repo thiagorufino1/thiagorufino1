@@ -17,7 +17,6 @@ $tenantId = ""
 
 # Configurações de política de senha
 [int]$PasswordExpirationDays = 90
-[int]$DaysRemainingAlert = 10
 
 # URL de autenticação do Azure AD
 $authUrl = "https://login.microsoftonline.com/$tenantId/oauth2/token"
@@ -53,7 +52,14 @@ $User = Invoke-RestMethod -Method Get -Uri $apiUrl -Headers $headers
 # Extrai a data da última alteração de senha e a converte em um formato utilizável
 $LastPasswordChangeDate = $User.value.lastPasswordChangeDateTime
 $DisplayName = $User.value.displayName
-$ConvertData = [System.DateTimeOffset]::ParseExact($LastPasswordChangeDate, "yyyy-MM-ddTHH:mm:ssZ", [System.Globalization.CultureInfo]::InvariantCulture)
+
+if ($LastPasswordChangeDate -match "Z$") {
+    # formato "yyyy-MM-ddTHH:mm:ssZ"
+    $ConvertData = [System.DateTimeOffset]::ParseExact($LastPasswordChangeDate, "yyyy-MM-ddTHH:mm:ssZ", [System.Globalization.CultureInfo]::InvariantCulture)
+} else {
+    # formato "dddd, dd 'de' MMMM 'de' yyyy HH:mm:ss"
+    $ConvertData = [DateTime]::ParseExact($LastPasswordChangeDate, "MM/dd/yyyy HH:mm:ss", [System.Globalization.CultureInfo]::InvariantCulture)
+}
 
 # Calcula a data da próxima alteração de senha
 $NextPasswordChangeDate = $ConvertData.AddDays($PasswordExpirationDays)
