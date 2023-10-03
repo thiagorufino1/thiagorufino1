@@ -1,0 +1,31 @@
+{
+    "@odata.type": "#microsoft.graph.windows10CustomConfiguration",
+    "roleScopeTagIds": [
+        "0"
+    ],
+    "supportsScopeTags": true,
+    "deviceManagementApplicabilityRuleOsEdition": null,
+    "deviceManagementApplicabilityRuleOsVersion": null,
+    "deviceManagementApplicabilityRuleDeviceMode": null,
+    "displayName": "CIS - Windows 10 - Administrative Template - User - L2",
+    "omaSettings": [
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "19.6.6.1.1 (L2) Ensure \u0027Turn off Help Experience Improvement Program\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/ADMX_HelpAndSupport/HPImplicitFeedback",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "19.7.8.3 (L2) Ensure \u0027Do not use diagnostic data for tailored experiences\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/Experience/AllowTailoredExperiencesWithDiagnosticData",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "19.7.8.4 (L2) Ensure \u0027Turn off all Windows spotlight features\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/Experience/AllowWindowsSpotlight",
+            "value": 1
+        }
+    ]
+}

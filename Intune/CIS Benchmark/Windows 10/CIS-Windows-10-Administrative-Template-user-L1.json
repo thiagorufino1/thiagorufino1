@@ -1,0 +1,79 @@
+{
+    "@odata.type": "#microsoft.graph.windows10CustomConfiguration",
+    "roleScopeTagIds": [
+        "0"
+    ],
+    "supportsScopeTags": true,
+    "deviceManagementApplicabilityRuleOsEdition": null,
+    "deviceManagementApplicabilityRuleOsVersion": null,
+    "deviceManagementApplicabilityRuleDeviceMode": null,
+    "displayName": "CIS - Windows 10 - Administrative Template - User - L1",
+    "omaSettings": [
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "19.1.3.1 (L1) Ensure \u0027Enable screen saver\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/ADMX_ControlPanelDisplay/CPL_Personalization_EnableScreenSaver",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "19.1.3.2 (L1) Ensure \u0027Password protect the screen saver\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/ADMX_ControlPanelDisplay/CPL_Personalization_ScreenSaverIsSecure",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "19.1.3.3 (L1) Ensure \u0027Screen saver timeout\u0027 is set to \u0027Enabled: 900 seconds or fewer, but not 0\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/ADMX_ControlPanelDisplay/CPL_Personalization_ScreenSaverTimeOut",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"ScreenSaverTimeOutFreqSpin\" value=\"900\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "19.5.1.1 (L1) Ensure \u0027Turn off toast notifications on the lock screen\u0027 is set to \u0027Blocked\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/AboveLock/AllowToasts",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "19.6.6.1.1 (L2) Ensure \u0027Turn off Help Experience Improvement Program\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/ADMX_HelpAndSupport/HPImplicitFeedback",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "19.7.4.1 (L1) Ensure \u0027Do not preserve zone information in file attachments\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/AttachmentManager/DoNotPreserveZoneInformation",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "19.7.4.2 (L1) Ensure \u0027Notify antivirus programs when opening attachments\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/AttachmentManager/NotifyAntivirusPrograms",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "19.7.8.1 (L1) Ensure \u0027Configure Windows spotlight on lock screen\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/Experience/ConfigureWindowsSpotlightOnLockScreen",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "19.7.8.2 (L1) Ensure \u0027Do not suggest third-party content in Windows spotlight\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/Experience/AllowThirdPartySuggestionsInWindowsSpotlight",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "19.7.27.1 (L1) Ensure \u0027Prevent users from sharing files within their profile.\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/ADMX_Sharing/NoInplaceSharing",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "19.7.42.1 (L1) Ensure \u0027Always install with elevated privileges\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/ApplicationManagement/MSIAlwaysInstallWithElevatedPrivileges",
+            "value": 0
+        }
+    ]
+}
