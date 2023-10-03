@@ -1,0 +1,37 @@
+{
+    "@odata.type": "#microsoft.graph.windows10CustomConfiguration",
+    "roleScopeTagIds": [
+        "0"
+    ],
+    "supportsScopeTags": true,
+    "deviceManagementApplicabilityRuleOsEdition": null,
+    "deviceManagementApplicabilityRuleOsVersion": null,
+    "deviceManagementApplicabilityRuleDeviceMode": null,
+    "displayName": "CIS - Windows 10 - System Services - L1",
+    "omaSettings": [
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "5.1 (L1) Ensure \u0027Xbox Accessory Management Service (XboxGipSvc)\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/SystemServices/ConfigureXboxAccessoryManagementServiceStartupMode",
+            "value": 4
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "5.2 (L1) Ensure \u0027Xbox Live Auth Manager (XblAuthManager)\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/SystemServices/ConfigureXboxLiveAuthManagerServiceStartupMode",
+            "value": 4
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "5.3 (L1) Ensure \u0027Xbox Live Game Save (XblGameSave)\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/SystemServices/ConfigureXboxLiveGameSaveServiceStartupMode",
+            "value": 4
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "5.4 (L1) Ensure \u0027Xbox Live Networking Service (XboxNetApiSvc)\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/SystemServices/ConfigureXboxLiveNetworkingServiceStartupMode",
+            "value": 4
+        }
+    ]
+}
