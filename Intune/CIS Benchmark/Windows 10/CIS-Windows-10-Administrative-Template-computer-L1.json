@@ -1,0 +1,847 @@
+{
+    "@odata.type": "#microsoft.graph.windows10CustomConfiguration",
+    "roleScopeTagIds": [
+        "0"
+    ],
+    "supportsScopeTags": true,
+    "deviceManagementApplicabilityRuleOsEdition": null,
+    "deviceManagementApplicabilityRuleOsVersion": null,
+    "deviceManagementApplicabilityRuleDeviceMode": null,
+    "displayName": "CIS - Windows 10 - Administrative Template - Computer - L1",
+    "omaSettings": [
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.1.1.1 (L1) Ensure \u0027Prevent enabling lock screen camera\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/DeviceLock/PreventEnablingLockScreenCamera",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.1.1.2 (L1) Ensure \u0027Prevent enabling lock screen slide show\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/DeviceLock/PreventLockScreenSlideShow",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.1.2.2 (L1) Ensure \u0027Allow users to enable online speech recognition services\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Privacy/AllowInputPersonalization",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.1.3 (L2) Ensure \u0027Allow Online Tips\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Settings/AllowOnlineTips",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.3.1 (L1) Ensure \u0027Apply UAC restrictions to local accounts on network logons\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/MSSecurityGuide/ApplyUACRestrictionsToLocalAccountsOnNetworkLogon",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.3.2 (L1) Ensure \u0027Configure SMB v1 client driver\u0027 is set to \u0027Enabled: Disable driver (recommended)\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/MSSecurityGuide/ConfigureSMBV1ClientDriver",
+            "value": "\u003cenabled/\u003e\u003cdata id=\"Pol_SecGuide_SMB1ClientDriver\" value=\"4\" /\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.3.3 (L1) Ensure \u0027Configure SMB v1 server\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/MSSecurityGuide/ConfigureSMBV1Server",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.3.4 (L1) Ensure \u0027Enable Structured Exception Handling Overwrite Protection (SEHOP)\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/MSSecurityGuide/EnableStructuredExceptionHandlingOverwriteProtection",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.3.5 (L1) Ensure \u0027WDigest Authentication\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/MSSecurityGuide/WDigestAuthentication",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.4.1 (L1) Ensure \u0027MSS: (AutoAdminLogon) Enable Automatic Logon (not recommended)\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MSS-legacy/Pol_MSS_AutoAdminLogon",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.4.2 (L1) Ensure \u0027MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing)\u0027 is set to \u0027Enabled: Highest protection, source routing is completely disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/MSSLegacy/IPv6SourceRoutingProtectionLevel",
+            "value": "\u003cenabled/\u003e\u003cdata id=\"DisableIPSourceRoutingIPv6\" value=\"2\" /\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.4.3 (L1) Ensure \u0027MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)\u0027 is set to \u0027Enabled: Highest protection, source routing is completely disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/MSSLegacy/IPSourceRoutingProtectionLevel",
+            "value": "\u003cenabled/\u003e\u003cdata id=\"DisableIPSourceRouting\" value=\"2\" /\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.4.4 (L2) Ensure \u0027MSS: (DisableSavePassword) Prevent the dial-up password from being saved\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MSS-legacy/Pol_MSS_DisableSavePassword",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.4.5 (L1) Ensure \u0027MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/MSSLegacy/AllowICMPRedirectsToOverrideOSPFGeneratedRoutes",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.4.6 (L2) Ensure \u0027MSS: (KeepAliveTime) How often keep-alive packets are sent in milliseconds\u0027 is set to \u0027Enabled: 300,000 or 5 minutes (recommended)\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MSS-legacy/Pol_MSS_KeepAliveTime",
+            "value": "\u003cenabled/\u003e\u003cdata id=\"KeepAliveTime\" value=\"300000\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.4.7 (L1) Ensure \u0027MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests except from WINS servers\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/MSSLegacy/AllowTheComputerToIgnoreNetBIOSNameReleaseRequestsExceptFromWINSServers",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.4.8 (L1) Ensure \u0027MSS: (SafeDllSearchMode) Enable Safe DLL search mode (recommended)\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MSS-legacy/Pol_MSS_SafeDllSearchMode",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.4.9 (L2) Ensure \u0027MSS: (PerformRouterDiscovery) Allow IRDP to detect and configure Default Gateway addresses (could lead to DoS)\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MSS-legacy/Pol_MSS_PerformRouterDiscovery",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.4.10 (L1) Ensure \u0027MSS: (ScreenSaverGracePeriod) The time in seconds before the screen saver grace period expires (0 recommended)\u0027 is set to \u0027Enabled: 5 or fewer seconds\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MSS-legacy/Pol_MSS_ScreenSaverGracePeriod",
+            "value": "\u003cenabled/\u003e\u003cdata id=\"ScreenSaverGracePeriod\" value=\"5\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.4.11 (L2) Ensure \u0027MSS: (TcpMaxDataRetransmissions) How many times unacknowledged data is retransmitted\u0027 is set to \u0027Enabled: 3\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MSS-legacy/Pol_MSS_TcpMaxDataRetransmissions",
+            "value": "\u003cenabled/\u003e\u003cdata id=\"TcpMaxDataRetransmissions\" value=\"3\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.4.12 (L2) Ensure \u0027MSS: (TcpMaxDataRetransmissions IPv6) How many times unacknowledged data is retransmitted\u0027 is set to \u0027Enabled: 3\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MSS-legacy/Pol_MSS_TcpMaxDataRetransmissionsIPv6",
+            "value": "\u003cenabled/\u003e\u003cdata id=\"TcpMaxDataRetransmissions\" value=\"3\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.4.13 (L1) Ensure \u0027MSS: (WarningLevel) Percentage threshold for the security event log at which the system will generate a warning\u0027 is set to \u0027Enabled: 90% or less\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MSS-legacy/Pol_MSS_WarningLevel",
+            "value": "\u003cenabled/\u003e\u003cdata id=\"WarningLevel\" value=\"90\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.5.4.1 (L1) Ensure \u0027Turn off multicast name resolution\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_DnsClient/Turn_Off_Multicast",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.5.5.1 (L2) Ensure \u0027Enable Font Providers\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/System/AllowFontProviders",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.5.8.1 (L1) Ensure \u0027Enable insecure guest logons\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/LanmanWorkstation/EnableInsecureGuestLogons",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.5.11.2 (L1) Ensure \u0027Prohibit installation and configuration of Network Bridge on your DNS domain network\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Connectivity/ProhibitInstallationAndConfigurationOfNetworkBridge",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.5.11.3 (L1) Ensure \u0027Prohibit use of Internet Connection Sharing on your DNS domain network\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_NetworkConnections/NC_ShowSharedAccessUI",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.5.11.4 (L1) Ensure \u0027Require domain users to elevate when setting a network\u0027s location\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_NetworkConnections/NC_StdDomainUserSetLocation",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.5.14.1 (L1) Ensure \u0027Hardened UNC Paths\u0027 is set to \u0027Enabled, with \"Require Mutual Authentication\" and \"Require Integrity\" set for all NETLOGON and SYSVOL shares\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Connectivity/HardenedUNCPaths",
+            "value": "\u003cenabled/\u003e\u003cdata id=\"Pol_HardenedPaths\" value=\"\\\\*\\NETLOGONRequireMutualAuthentication=1,RequireIntegrity=1\\\\*\\SYSVOLRequireMutualAuthentication=1,RequireIntegrity=1\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.5.20.1 (L2) Ensure \u0027Configuration of wireless settings using Windows Connect Now\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_WindowsConnectNow/WCN_EnableRegistrar",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"WCN_EnableRegistrar_DisableUPnP\" value=\"true\"/\u003e\n\u003cdata id=\"WCN_EnableRegistrar_DisableInBand802DOT11\" value=\"true\"/\u003e\n\u003cdata id=\"WCN_EnableRegistrar_DisableFlashConfig\" value=\"true\"/\u003e\n\u003cdata id=\"WCN_EnableRegistrar_DisableWPD\" value=\"true\"/\u003e\n\u003cdata id=\"WCN_EnableRegistrar_MaxWCNDeviceNumber\" value=\"500\"/\u003e\n\u003cdata id=\"WCN_Higher_Precedence_Registrar\" value=\"1\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.5.20.2 (L2) Ensure \u0027Prohibit access of the Windows Connect Now wizards\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_WindowsConnectNow/WCN_DisableWcnUi_2",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.5.21.1 (L1) Ensure \u0027Prohibit connection to non-domain networks when connected to domain authenticated network\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/WindowsConnectionManager/ProhitConnectionToNonDomainNetworksWhenConnectedToDomainAuthenticatedNetwork",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.5.21.2 (L1) Ensure \u0027Minimize the number of simultaneous connections to the Internet or a Windows Domain\u0027 is set to \u0027Enabled: 3 = Prevent Wi-Fi when on Ethernet\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_WCM/WCM_MinimizeConnections",
+            "value": "\u003cenabled/\u003e\u003cdata id=\"WCM_MinimizeConnections_Options\" value=\"3\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.5.23.2.1 (L1) Ensure \u0027Allow Windows to automatically connect to suggested open hotspots, to networks shared by contacts, and to hotspots offering paid services\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Wifi/AllowAutoConnectToWiFiSenseHotspots",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.6.1 (L1) Ensure \u0027Allow Print Spooler to accept client connections\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_Printing2/RegisterSpoolerRemoteRpcEndPoint",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.6.2 and 18.6.3 (L1) Ensure \u0027Point and Print Restrictions: When installing drivers for a new connection\u0027 is set to \u0027Enabled: Show warning and elevation prompt\u0027 (L1) Ensure \u0027Point and Print Restrictions: When updating drivers for an existing connection\u0027 is set to \u0027Enabled: Show warning and elevation prompt\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Printers/PointAndPrintRestrictions",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"PointAndPrint_TrustedServers_Chk\" value=\"false\"/\u003e\n\u003cdata id=\"PointAndPrint_TrustedServers_Edit\" value=\"\"/\u003e\n\u003cdata id=\"PointAndPrint_TrustedForest_Chk\" value=\"false\"/\u003e\n\u003cdata id=\"PointAndPrint_NoWarningNoElevationOnInstall_Enum\" value=\"0\"/\u003e\n\u003cdata id=\"PointAndPrint_NoWarningNoElevationOnUpdate_Enum\" value=\"0\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.3.1 (L1) Ensure \u0027Include command line in process creation events\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_AuditSettings/IncludeCmdLine",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.4.1 (L1) Ensure \u0027Remote host allows delegation of non-exportable credentials\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/CredentialsDelegation/RemoteHostAllowsDelegationOfNonExportableCredentials",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.4.2 (L1) Ensure \u0027Encryption Oracle Remediation\u0027 is set to \u0027Enabled: Force Updated Clients\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_CredSsp/AllowEncryptionOracle",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"AllowEncryptionOracleDrop\" value=\"0\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.7.2 (L1) Ensure \u0027Prevent device metadata retrieval from the Internet\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/DeviceInstallation/PreventDeviceMetadataFromNetwork",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.14.1 (L1) Ensure \u0027Boot-Start Driver Initialization Policy\u0027 is set to \u0027Enabled: Good, unknown and bad but critical\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/System/BootStartDriverInitialization",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"SelectDriverLoadPolicy\" value=\"3\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.21.1 and 18.8.21.2 (L1) Ensure \u0027Configure registry policy processing: Do not apply during periodic background processing\u0027 is set to \u0027Enabled: FALSE\u0027 18.8.21.2 (L1) Ensure \u0027Configure registry policy processing: Process even if the Group Policy objects have not changed\u0027 is set to \u0027Enabled: TRUE\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_GroupPolicy/CSE_Registry",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"CSE_NOBACKGROUND10\" value=\"false\"/\u003e\n\u003cdata id=\"CSE_NOCHANGES10\" value=\"false\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.21.3 (L1) Ensure \u0027Continue experiences on this device\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_GroupPolicy/EnableCDP",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.21.4 (L1) Ensure \u0027Turn off background refresh of Group Policy\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_GroupPolicy/DisableBackgroundPolicy",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.22.1.2 (L1) Ensure \u0027Turn off downloading of print drivers over HTTP\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/ADMX_ICM/DisableWebPnPDownload_1",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.22.1.4 (L1) Ensure \u0027Turn off Internet download for Web publishing and online ordering wizards\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/ADMX_ICM/ShellPreventWPWDownload_1",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.28.1 (L1) Ensure \u0027Block user from showing account details on sign-in\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_Logon/BlockUserFromShowingAccountDetailsOnSignin",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.28.2 (L1) Ensure \u0027Do not display network selection UI\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/WindowsLogon/DontDisplayNetworkSelectionUI",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.28.3 (L1) Ensure \u0027Do not enumerate connected users on domain-joined computers\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_Logon/DontEnumerateConnectedUsers",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.28.4 (L1) Ensure \u0027Enumerate local users on domain-joined computers\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/WindowsLogon/EnumerateLocalUsersOnDomainJoinedComputers",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.28.5 (L1) Ensure \u0027Turn off app notifications on the lock screen\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/WindowsLogon/DisableLockScreenAppNotifications",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.28.6 (L1) Ensure \u0027Turn off picture password sign-in\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/CredentialProviders/BlockPicturePassword",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.28.7 (L1) Ensure \u0027Turn on convenience PIN sign-in\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/CredentialProviders/AllowPINLogon",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.34.6.1 (L1) Ensure \u0027Allow network connectivity during connected-standby (on battery)\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_Power/DCConnectivityInStandby_2",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.34.6.2 (L1) Ensure \u0027Allow network connectivity during connected-standby (plugged in)\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_Power/ACConnectivityInStandby_2",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.34.6.5 (L1) Ensure \u0027Require a password when a computer wakes (on battery)\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Power/RequirePasswordWhenComputerWakesOnBattery",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.34.6.6 (L1) Ensure \u0027Require a password when a computer wakes (plugged in)\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Power/RequirePasswordWhenComputerWakesPluggedIn",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.36.1 (L1) Ensure \u0027Configure Offer Remote Assistance\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteAssistance/UnsolicitedRemoteAssistance",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.36.2 (L1) Ensure \u0027Configure Solicited Remote Assistance\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteAssistance/SolicitedRemoteAssistance",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.37.1 (L1) Ensure \u0027Enable RPC Endpoint Mapper Client Authentication\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteProcedureCall/RPCEndpointMapperClientAuthentication",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.37.2 (L1) Ensure \u0027Restrict Unauthenticated RPC clients\u0027 is set to \u0027Enabled: Authenticated\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteProcedureCall/RestrictUnauthenticatedRPCClients",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"RpcRestrictRemoteClientsList\" value=\"1\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.4.2 (L1) Ensure \u0027Prevent non-admin users from installing packaged Windows apps\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ApplicationManagement/BlockNonAdminUserInstall",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.5.1 (L1) Ensure \u0027Let Windows apps activate with voice while the system is locked\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Privacy/LetAppsActivateWithVoiceAboveLock",
+            "value": 2
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.6.1 (L1) Ensure \u0027Allow Microsoft accounts to be optional\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/AppRuntime/AllowMicrosoftAccountsToBeOptional",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.8.1 (L1) Ensure \u0027Disallow Autoplay for non-volume devices\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Autoplay/DisallowAutoplayForNonVolumeDevices",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.8.2 (L1) Ensure \u0027Set the default behavior for AutoRun\u0027 is set to \u0027Enabled: Do not execute any autorun commands\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Autoplay/SetDefaultAutoRunBehavior",
+            "value": "\u003cenabled/\u003e\u003cdata id=\"NoAutorun_Dropdown\" value=\"1\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.8.3 (L1) Ensure \u0027Turn off Autoplay\u0027 is set to \u0027Enabled: All drives\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Autoplay/TurnOffAutoPlay",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"Autorun_Box\" value=\"255\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.14.1 (L1) Ensure \u0027Turn off Microsoft consumer experiences\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Experience/AllowWindowsConsumerFeatures",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.15.1 (L1) Ensure \u0027Require pin for pairing\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/WirelessDisplay/RequirePinForPairing",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.16.1 (L1) Ensure \u0027Do not display the password reveal button\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/CredentialsUI/DisablePasswordReveal",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.16.2 (L1) Ensure \u0027Enumerate administrator accounts on elevation\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/CredentialsUI/EnumerateAdministrators",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.16.3 (L1) Ensure \u0027Prevent the use of security questions for local accounts\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_CredUI/NoLocalPasswordResetQuestions",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.17.1 (L1) Ensure \u0027Allow Diagnostic Data\u0027 is set to \u0027Enabled: Diagnostic data off (not recommended)\u0027 or \u0027Enabled: Send required diagnostic data\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/System/AllowTelemetry",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.17.3 (L1) Ensure \u0027Do not show feedback notifications\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Experience/DoNotShowFeedbackNotifications",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.17.4 (L1) Ensure \u0027Toggle user control over Insider builds\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/System/AllowBuildPreview",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.18.1 (L1) Ensure \u0027Download Mode\u0027 is NOT set to \u0027Enabled: Internet\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/DeliveryOptimization/DODownloadMode",
+            "value": 3
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.27.1.1 (L1) Ensure \u0027Application: Control Event Log behavior when the log file reaches its maximum size\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_EventLog/Channel_Log_AutoBackup_1",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.27.1.2 (L1) Ensure \u0027Application: Specify the maximum log file size (KB)\u0027 is set to \u0027Enabled: 32,768 or greater\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/EventLogService/SpecifyMaximumFileSizeApplicationLog",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"Channel_LogMaxSize\" value=\"102400\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.27.2.1 (L1) Ensure \u0027Security: Control Event Log behavior when the log file reaches its maximum size\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_EventLog/Channel_Log_AutoBackup_2",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.27.2.2 (L1) Ensure \u0027Security: Specify the maximum log file size (KB)\u0027 is set to \u0027Enabled: 196,608 or greater\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/EventLogService/SpecifyMaximumFileSizeSecurityLog",
+            "value": "\u003cenabled/\u003e\u003cdata id=\"Channel_LogMaxSize\" value=\"2097152\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.27.3.1 (L1) Ensure \u0027Setup: Control Event Log behavior when the log file reaches its maximum size\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_EventLog/Channel_Log_AutoBackup_3",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.27.3.2 (L1) Ensure \u0027Setup: Specify the maximum log file size (KB)\u0027 is set to \u0027Enabled: 32,768 or greater\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_EventLog/Channel_LogMaxSize_3",
+            "value": "\u003cenabled/\u003e\u003cdata id=\"Channel_LogMaxSize\" value=\"102400\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.27.4.1 (L1) Ensure \u0027System: Control Event Log behavior when the log file reaches its maximum size\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_EventLog/Channel_Log_AutoBackup_4",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.27.4.2 (L1) Ensure \u0027System: Specify the maximum log file size (KB)\u0027 is set to \u0027Enabled: 32,768 or greater\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/EventLogService/SpecifyMaximumFileSizeSystemLog",
+            "value": "\u003cenabled/\u003e\u003cdata id=\"Channel_LogMaxSize\" value=\"204800\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.31.2 (L1) Ensure \u0027Turn off Data Execution Prevention for Explorer\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/FileExplorer/TurnOffDataExecutionPreventionForExplorer",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.31.3 (L1) Ensure \u0027Turn off heap termination on corruption\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/FileExplorer/TurnOffHeapTerminationOnCorruption",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.31.4 (L1) Ensure \u0027Turn off shell protocol protected mode\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_WindowsExplorer/ShellProtocolProtectedModeTitle_2",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.46.1 (L1) Ensure \u0027Block all consumer Microsoft account user authentication\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MSAPolicy/MicrosoftAccount_DisableUserAuth",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.47.3.1 (L1) Ensure \u0027Configure local setting override for reporting to Microsoft MAPS\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MicrosoftDefenderAntivirus/Spynet_LocalSettingOverrideSpynetReporting",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.47.3.2 (L2) Ensure \u0027Join Microsoft MAPS\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MicrosoftDefenderAntivirus/SpynetReporting",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"SpynetReporting\" value=\"2\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.47.4.1.1 and 18.9.47.4.1.2 (L1) Ensure \u0027Configure Attack Surface Reduction rules\u0027 is set to \u0027Enabled\u0027 18.9.47.4.1.2 (L1) Ensure \u0027Configure Attack Surface Reduction rules: Set the state for each ASR rule\u0027 is configured",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MicrosoftDefenderAntivirus/ExploitGuard_ASR_Rules",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"ExploitGuard_ASR_Rules\" value=\"56a863a9-875e-4185-98a7-b882c64b5ce5156a863a9-875e-4185-98a7-b882c64b5ce517674ba52-37eb-4a4f-a9a1-f0f9a1619a2c1d4f940ab-401b-4efc-aadc-ad5f3c50688a19e6c4e1f-7d60-472f-ba1a-a39ef669e4b21be9ba2d9-53ea-4cdc-84e5-9b1eeee46550101443614-cd74-433a-b99e-2ecdc07bfc2515beb7efe-fd9a-4556-801d-275e5ffc04cc1d3e037e1-3eb8-44c8-a917-57927947596d13b576869-a4ec-4529-8536-b80a7769e899175668c1f-73b5-4cf0-bb93-3ecf5cb7cc84126190899-1602-49e8-8b27-eb1d0a1ce8692e6db77e5-3df2-4cf1-b95a-636979351e5b1d1e49aac-8f56-4280-b9ba-993a6d77406c1b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4192e97fa1-2edf-4476-bdd6-9dd0b4dddc7b1c1db55ab-c21a-4637-bb3f-a12568109d351\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.47.4.3.1 (L1) Ensure \u0027Prevent users and apps from accessing dangerous websites\u0027 is set to \u0027Enabled: Block\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Defender/EnableNetworkProtection",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.47.8.1 (L1) Ensure \u0027Scan all downloaded files and attachments\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MicrosoftDefenderAntivirus/RealtimeProtection_DisableIOAVProtection",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.47.8.2 (L1) Ensure \u0027Turn off real-time protection\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MicrosoftDefenderAntivirus/DisableRealtimeMonitoring",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.47.8.3 (L1) Ensure \u0027Turn on behavior monitoring\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MicrosoftDefenderAntivirus/RealtimeProtection_DisableBehaviorMonitoring",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.47.11.1 (L1) Ensure \u0027Scan removable drives\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MicrosoftDefenderAntivirus/Scan_DisableRemovableDriveScanning",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.47.11.2 (L1) Ensure \u0027Turn on e-mail scanning\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MicrosoftDefenderAntivirus/Scan_DisableEmailScanning",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.47.14 (L1) Ensure \u0027Configure detection for potentially unwanted applications\u0027 is set to \u0027Enabled: Block\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Defender/PUAProtection",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.58.1 (L1) Ensure \u0027Prevent the usage of OneDrive for file storage\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/System/DisableOneDriveFileSync",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.65.2.2 (L1) Ensure \u0027Do not allow passwords to be saved\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteDesktopServices/DoNotAllowPasswordSaving",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.65.3.3.2 (L1) Ensure \u0027Do not allow drive redirection\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteDesktopServices/DoNotAllowDriveRedirection",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.65.3.9.1 (L1) Ensure \u0027Always prompt for password upon connection\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteDesktopServices/PromptForPasswordUponConnection",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.65.3.9.2 (L1) Ensure \u0027Require secure RPC communication\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteDesktopServices/RequireSecureRPCCommunication",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.65.3.9.3 (L1) Ensure \u0027Require use of specific security layer for remote (RDP) connections\u0027 is set to \u0027Enabled: SSL\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_TerminalServer/TS_SECURITY_LAYER_POLICY",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"TS_SECURITY_LAYER\" value=\"2\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.65.3.9.4 (L1) Ensure \u0027Require user authentication for remote connections by using Network Level Authentication\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_TerminalServer/TS_USER_AUTHENTICATION_POLICY",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.65.3.9.5 (L1) Ensure \u0027Set client connection encryption level\u0027 is set to \u0027Enabled: High Level\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteDesktopServices/ClientConnectionEncryptionLevel",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"TS_ENCRYPTION_LEVEL\" value=\"3\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.65.3.11.1 (L1) Ensure \u0027Do not delete temp folders upon exit\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_TerminalServer/TS_TEMP_DELETE",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.66.1 (L1) Ensure \u0027Prevent downloading of enclosures\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/InternetExplorer/DisableEnclosureDownloading",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.67.2 (L2) Ensure \u0027Allow Cloud Search\u0027 is set to \u0027Enabled: Disable Cloud Search\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Search/AllowCloudSearch",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.67.3 (L1) Ensure \u0027Allow Cortana\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Experience/AllowCortana",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.67.4 (L1) Ensure \u0027Allow Cortana above lock screen\u0027 is set to \u0027Blocked\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/AboveLock/AllowCortanaAboveLock",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.67.5 (L1) Ensure \u0027Allow indexing of encrypted files\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Search/AllowIndexingEncryptedStoresOrItems",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.67.6 (L1) Ensure \u0027Allow search and Cortana to use location\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Search/AllowSearchToUseLocation",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.75.2 (L1) Ensure \u0027Only display the private store within the Microsoft Store\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ApplicationManagement/RequirePrivateStoreOnly",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.75.3 (L1) Ensure \u0027Turn off the offer to update to the latest version of Windows\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_WindowsStore/DisableOSUpgrade_2",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.75.4 (L2) Ensure \u0027Turn off the Store application\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_WindowsStore/RemoveWindowsStore_2",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.85.1.1 (L1) Ensure \u0027Configure Windows Defender SmartScreen\u0027 is set to \u0027Enabled: Warn and prevent bypass\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/SmartScreen/EnableSmartScreenInShell",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.85.2.1 (L1) Ensure \u0027Configure Windows Defender SmartScreen\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Browser/AllowSmartScreen",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.85.2.2 (L1) Ensure \u0027Prevent bypassing Windows Defender SmartScreen prompts for sites\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Browser/PreventSmartScreenPromptOverride",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.87.1 (L1) Ensure \u0027Enables or disables Windows Game Recording and Broadcasting\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ApplicationManagement/AllowGameDVR",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.89.2 (L1) Ensure \u0027Allow Windows Ink Workspace\u0027 is set to \u0027Enabled: On, but disallow access above lock\u0027 OR \u0027Disabled\u0027 but not \u0027Enabled: On\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/WindowsInkWorkspace/AllowWindowsInkWorkspace",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.90.1 (L1) Ensure \u0027Allow user control over installs\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ApplicationManagement/MSIAllowUserControlOverInstall",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.90.2 (L1) Ensure \u0027Always install with elevated privileges\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ApplicationManagement/MSIAlwaysInstallWithElevatedPrivileges",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.91.1 (L1) Ensure \u0027Sign-in and lock last interactive user automatically after a restart\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/WindowsLogon/AllowAutomaticRestartSignOn",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.100.1 (L1) Ensure \u0027Turn on PowerShell Script Block Logging\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/WindowsPowerShell/TurnOnPowerShellScriptBlockLogging",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"EnableScriptBlockInvocationLogging\" value=\"true\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.100.2 (L1) Ensure \u0027Turn on PowerShell Transcription\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_PowerShellExecutionPolicy/EnableTranscripting",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.102.1.1 (L1) Ensure \u0027Allow Basic authentication\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteManagement/AllowBasicAuthentication_Client",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.102.1.2 (L1) Ensure \u0027Allow unencrypted traffic\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteManagement/AllowUnencryptedTraffic_Client",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.102.1.3 (L1) Ensure \u0027Disallow Digest authentication\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteManagement/DisallowDigestAuthentication",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.102.2.1 (L1) Ensure \u0027Allow Basic authentication\u0027 is set to \u0027Disabled\u0027 (Server)",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteManagement/AllowBasicAuthentication_Service",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.102.2.2 (L2) Ensure \u0027Allow remote server management through WinRM\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteManagement/AllowRemoteServerManagement",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.102.2.3 (L1) Ensure \u0027Allow unencrypted traffic\u0027 is set to \u0027Disabled\u0027 (Server)",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteManagement/AllowUnencryptedTraffic_Service",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.102.2.4 (L1) Ensure \u0027Disallow WinRM from storing RunAs credentials\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteManagement/DisallowStoringOfRunAsCredentials",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.105.2.1 (L1) Ensure \u0027Prevent users from modifying settings\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/WindowsDefenderSecurityCenter/DisallowExploitProtectionOverride",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.108.2.1 (L1) Ensure \u0027Configure Automatic Updates\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Update/AllowAutoUpdate",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.108.2.2 (L1) Ensure \u0027Configure Automatic Updates: Scheduled install day\u0027 is set to \u00270 - Every day\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Update/ScheduledInstallDay",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.108.2.3 (L1) Ensure \u0027Remove access to “Pause updates” feature\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Update/SetDisablePauseUXAccess",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.108.3.1 (L1) Ensure \u0027Manage preview builds\u0027 is set to \u0027Enabled: Disable preview builds\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Update/ManagePreviewBuilds",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.108.3.2 (L1) Ensure \u0027Select when Quality Updates are received\u0027 is set to \u0027Enabled: 0 days\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Update/PauseQualityUpdates",
+            "value": 0
+        }
+    ]
+}

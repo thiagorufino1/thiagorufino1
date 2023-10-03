@@ -1,0 +1,349 @@
+{
+    "@odata.type": "#microsoft.graph.windows10CustomConfiguration",
+    "roleScopeTagIds": [
+        "0"
+    ],
+    "supportsScopeTags": true,
+    "deviceManagementApplicabilityRuleOsEdition": null,
+    "deviceManagementApplicabilityRuleOsVersion": null,
+    "deviceManagementApplicabilityRuleDeviceMode": null,
+    "displayName": "CIS - Windows 10 - Administrative Template - Computer - L2",
+    "omaSettings": [
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.1.3 (L2) Ensure \u0027Allow Online Tips\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Settings/AllowOnlineTips",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.4.4 (L2) Ensure \u0027MSS: (DisableSavePassword) Prevent the dial-up password from being saved\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MSS-legacy/Pol_MSS_DisableSavePassword",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.4.6 (L2) Ensure \u0027MSS: (KeepAliveTime) How often keep-alive packets are sent in milliseconds\u0027 is set to \u0027Enabled: 300,000 or 5 minutes (recommended)\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MSS-legacy/Pol_MSS_KeepAliveTime",
+            "value": "\u003cenabled/\u003e\u003cdata id=\"KeepAliveTime\" value=\"300000\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.4.9 (L2) Ensure \u0027MSS: (PerformRouterDiscovery) Allow IRDP to detect and configure Default Gateway addresses (could lead to DoS)\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MSS-legacy/Pol_MSS_PerformRouterDiscovery",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.4.11 (L2) Ensure \u0027MSS: (TcpMaxDataRetransmissions) How many times unacknowledged data is retransmitted\u0027 is set to \u0027Enabled: 3\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MSS-legacy/Pol_MSS_TcpMaxDataRetransmissions",
+            "value": "\u003cenabled/\u003e\u003cdata id=\"TcpMaxDataRetransmissions\" value=\"3\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.4.12 (L2) Ensure \u0027MSS: (TcpMaxDataRetransmissions IPv6) How many times unacknowledged data is retransmitted\u0027 is set to \u0027Enabled: 3\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MSS-legacy/Pol_MSS_TcpMaxDataRetransmissionsIPv6",
+            "value": "\u003cenabled/\u003e\u003cdata id=\"TcpMaxDataRetransmissions\" value=\"3\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.5.5.1 (L2) Ensure \u0027Enable Font Providers\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/System/AllowFontProviders",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.5.9.1 (L2) Ensure \u0027Turn on Mapper I/O (LLTDIO) driver\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_LinkLayerTopologyDiscovery/LLTD_EnableLLTDIO",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.5.9.2 (L2) Ensure \u0027Turn on Responder (RSPNDR) driver\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_LinkLayerTopologyDiscovery/LLTD_EnableRspndr",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.5.20.1 (L2) Ensure \u0027Configuration of wireless settings using Windows Connect Now\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_WindowsConnectNow/WCN_EnableRegistrar",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"WCN_EnableRegistrar_DisableUPnP\" value=\"true\"/\u003e\n\u003cdata id=\"WCN_EnableRegistrar_DisableInBand802DOT11\" value=\"true\"/\u003e\n\u003cdata id=\"WCN_EnableRegistrar_DisableFlashConfig\" value=\"true\"/\u003e\n\u003cdata id=\"WCN_EnableRegistrar_DisableWPD\" value=\"true\"/\u003e\n\u003cdata id=\"WCN_EnableRegistrar_MaxWCNDeviceNumber\" value=\"500\"/\u003e\n\u003cdata id=\"WCN_Higher_Precedence_Registrar\" value=\"1\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.5.20.2 (L2) Ensure \u0027Prohibit access of the Windows Connect Now wizards\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_WindowsConnectNow/WCN_DisableWcnUi_2",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.7.1.1 (L2) Ensure \u0027Turn off notifications network usage\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Notifications/DisallowCloudNotification",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.22.1.1 (L2) Ensure \u0027Turn off access to the Store\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/ADMX_ICM/ShellNoUseStoreOpenWith_1",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.22.1.3 (L2) Ensure \u0027Turn off Internet Connection Wizard if URL connection is referring to Microsoft.com\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_ICM/NC_ExitOnISP",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.22.1.5 (L2) Ensure \u0027Turn off printing over HTTP\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/ADMX_ICM/DisableHTTPPrinting_1",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.22.1.6 (L2) Ensure \u0027Turn off Registration if URL connection is referring to Microsoft.com\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_ICM/NC_NoRegistration",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.22.1.7 (L2) Ensure \u0027Turn off Search Companion content file updates\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_ICM/SearchCompanion_DisableFileUpdates",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.22.1.8 (L2) Ensure \u0027Turn off the \"Order Prints\" picture task\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/ADMX_ICM/ShellRemoveOrderPrints_1",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.22.1.9 (L2) Ensure \u0027Turn off the \"Publish to Web\" task for files and folders\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/ADMX_ICM/ShellRemovePublishToWeb_1",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.22.1.10 (L2) Ensure \u0027Turn off the Windows Messenger Customer Experience Improvement Program\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./User/Vendor/MSFT/Policy/Config/ADMX_ICM/WinMSG_NoInstrumentation_1",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.22.1.11 (L2) Ensure \u0027Turn off Windows Customer Experience Improvement Program\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_ICM/CEIPEnable",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.22.1.12 (L2) Ensure \u0027Turn off Windows Error Reporting\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_ICM/PCH_DoNotReport",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.25.1 (L2) Ensure \u0027Support device authentication using certificate\u0027 is set to \u0027Enabled: Automatic\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_Kerberos/DevicePKInitEnabled",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"DevicePKInitBehavior\" value=\"0\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.8.26.1 (BL) Ensure \u0027Enumeration policy for external devices incompatible with Kernel DMA Protection\u0027 is set to \u0027Enabled: Block All\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/DmaGuard/DeviceEnumerationPolicy",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.27.1 (L2) Ensure \u0027Disallow copying of user input methods to the system account for sign-in\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_Globalization/BlockUserInputMethodsForSignIn",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.8.31.1 (L2) Ensure \u0027Allow Clipboard synchronization across devices\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Privacy/AllowCrossDeviceClipboard",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.8.31.2 (L2) Ensure \u0027Allow upload of User Activities\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Privacy/UploadUserActivities",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.34.6.3 (BL) Ensure \u0027Allow standby states (S1-S3) when sleeping (on battery)\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Power/AllowStandbyStatesWhenSleepingOnBattery",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.34.6.4 (BL) Ensure \u0027Allow standby states (S1-S3) when sleeping (plugged in)\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Power/AllowStandbyWhenSleepingPluggedIn",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.48.1.1 (L2) Ensure \u0027Microsoft Support Diagnostic Tool: Turn on MSDT interactive communication with support provider\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MSDT/MsdtSupportProvider",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.8.50.1 (L2) Ensure \u0027Turn off the advertising ID\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Privacy/DisableAdvertisingID",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.53.1.1.1 (L2) Ensure \u0027Enable Windows NTP Client\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_W32Time/W32TIME_POLICY_ENABLE_NTPCLIENT",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.8.53.1.1.2 (L2) Ensure \u0027Enable Windows NTP Server\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_W32Time/W32TIME_POLICY_ENABLE_NTPSERVER",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.4.1 (L2) Ensure \u0027Allow a Windows app to share application data between users\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ApplicationManagement/AllowSharedUserAppData",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.6.2 (L2) Ensure \u0027Block launching Universal Windows apps with Windows Runtime API access from hosted content.\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_AppXRuntime/AppxRuntimeBlockHostedAppAccessWinRT",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.12.1 (L2) Ensure \u0027Allow Use of Camera\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Camera/AllowCamera",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.17.2 (L2) Ensure \u0027Configure Authenticated Proxy usage for the Connected User Experience and Telemetry service\u0027 is set to \u0027Enabled: Disable Authenticated Proxy usage\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/System/DisableEnterpriseAuthProxy",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.41.1 (L2) Ensure \u0027Turn off location\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/System/AllowLocation",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.45.1 (L2) Ensure \u0027Allow Message Service Cloud Sync\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Messaging/AllowMessageSync",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.47.3.2 (L2) Ensure \u0027Join Microsoft MAPS\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MicrosoftDefenderAntivirus/SpynetReporting",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"SpynetReporting\" value=\"2\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.47.5.1 (L2) Ensure \u0027Enable file hash computation feature\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MicrosoftDefenderAntivirus/MpEngine_EnableFileHashComputation",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.47.10.1 (L2) Ensure \u0027Configure Watson events\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_MicrosoftDefenderAntivirus/Reporting_DisablegenericrePorts",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.64.1 (L2) Ensure \u0027Turn off Push To Install service\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_PushToInstall/DisablePushToInstall",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.65.3.2.1 (L2) Ensure \u0027Allow users to connect remotely by using Remote Desktop Services\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteDesktopServices/AllowUsersToConnectRemotely",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.65.3.3.1 (L2) Ensure \u0027Do not allow COM port redirection\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_TerminalServer/TS_CLIENT_COM",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.65.3.3.3 (L2) Ensure \u0027Do not allow LPT port redirection\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_TerminalServer/TS_CLIENT_LPT",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.65.3.3.4 (L2) Ensure \u0027Do not allow supported Plug and Play device redirection\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_TerminalServer/TS_CLIENT_PNP",
+            "value": "\u003cenabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.65.3.10.1 (L2) Ensure \u0027Set time limit for active but idle Remote Desktop Services sessions\u0027 is set to \u0027Enabled: 15 minutes or less, but not Never (0)\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_TerminalServer/TS_SESSIONS_Idle_Limit_2",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"TS_SESSIONS_IdleLimitText\" value=\"900000\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.65.3.10.2 (L2) Ensure \u0027Set time limit for disconnected sessions\u0027 is set to \u0027Enabled: 1 minute\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_TerminalServer/TS_SESSIONS_Disconnected_Timeout_2",
+            "value": "\u003cenabled/\u003e\n\u003cdata id=\"TS_SESSIONS_EndDisconnected\" value=\"60000\"/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.67.2 (L2) Ensure \u0027Allow Cloud Search\u0027 is set to \u0027Enabled: Disable Cloud Search\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Search/AllowCloudSearch",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.72.1 (L2) Ensure \u0027Turn off KMS Client Online AVS Validation\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Licensing/DisallowKMSClientOnlineAVSValidation",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.75.1 (L2) Ensure \u0027Disable all apps from Microsoft Store\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ApplicationManagement/DisableStoreOriginatedApps",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.75.4 (L2) Ensure \u0027Turn off the Store application\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/ADMX_WindowsStore/RemoveWindowsStore_2",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "18.9.89.1 (L2) Ensure \u0027Allow suggested apps in Windows Ink Workspace\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/WindowsInkWorkspace/AllowSuggestedAppsInWindowsInkWorkspace",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.102.2.2 (L2) Ensure \u0027Allow remote server management through WinRM\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteManagement/AllowRemoteServerManagement",
+            "value": "\u003cdisabled/\u003e"
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "18.9.103.1 (L2) Ensure \u0027Allow Remote Shell Access\u0027 is set to \u0027Disabled\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/RemoteShell/AllowRemoteShellAccess",
+            "value": "\u003cdisabled/\u003e"
+        }
+    ]
+}
