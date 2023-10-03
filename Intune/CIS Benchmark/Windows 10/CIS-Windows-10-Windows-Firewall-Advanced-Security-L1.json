@@ -1,0 +1,85 @@
+{
+    "@odata.type": "#microsoft.graph.windows10CustomConfiguration",
+    "roleScopeTagIds": [
+        "0"
+    ],
+    "supportsScopeTags": true,
+    "deviceManagementApplicabilityRuleOsEdition": null,
+    "deviceManagementApplicabilityRuleOsVersion": null,
+    "deviceManagementApplicabilityRuleDeviceMode": null,
+    "displayName": "CIS - Windows 10 - Windows Firewall Advanced Security - L1",
+    "omaSettings": [
+        {
+            "@odata.type": "#microsoft.graph.omaSettingBoolean",
+            "displayName": "9.1.1 (L1) Ensure \u0027Windows Firewall: Domain: Firewall state\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Vendor/MSFT/Firewall/MdmStore/DomainProfile/EnableFirewall",
+            "value": true
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "9.1.2 (L1) Ensure \u0027Windows Firewall: Domain: Inbound connections\u0027 is set to \u0027Block\u0027",
+            "omaUri": "./Vendor/MSFT/Firewall/MdmStore/DomainProfile/DefaultInboundAction",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "9.1.3 (L1) Ensure \u0027Windows Firewall: Domain: Outbound connections\u0027 is set to \u0027Allow\u0027",
+            "omaUri": "./Vendor/MSFT/Firewall/MdmStore/DomainProfile/DefaultOutboundAction",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingBoolean",
+            "displayName": "9.1.4 (L1) Ensure \u0027Windows Firewall: Domain: Settings: Display a notification\u0027 is set to \u0027Block\u0027",
+            "omaUri": "./Vendor/MSFT/Firewall/MdmStore/DomainProfile/DisableInboundNotifications",
+            "value": true
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingBoolean",
+            "displayName": "9.2.1 (L1) Ensure \u0027Windows Firewall: Private: Firewall state\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Vendor/MSFT/Firewall/MdmStore/PrivateProfile/EnableFirewall",
+            "value": true
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "9.2.2 (L1) Ensure \u0027Windows Firewall: Private: Inbound connections\u0027 is set to \u0027Block\u0027",
+            "omaUri": "./Vendor/MSFT/Firewall/MdmStore/PrivateProfile/DefaultInboundAction",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "9.2.3 (L1) Ensure \u0027Windows Firewall: Private: Outbound connections\u0027 is set to \u0027Allow\u0027",
+            "omaUri": "./Vendor/MSFT/Firewall/MdmStore/PrivateProfile/DefaultOutboundAction",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingBoolean",
+            "displayName": "9.2.4 (L1) Ensure \u0027Windows Firewall: Private: Settings: Display a notification\u0027 is set to \u0027Block\u0027",
+            "omaUri": "./Vendor/MSFT/Firewall/MdmStore/PrivateProfile/DisableInboundNotifications",
+            "value": true
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingBoolean",
+            "displayName": "9.3.1 (L1) Ensure \u0027Windows Firewall: Public: Firewall state\u0027 is set to \u0027Enabled\u0027",
+            "omaUri": "./Vendor/MSFT/Firewall/MdmStore/PublicProfile/EnableFirewall",
+            "value": true
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "9.3.2 (L1) Ensure \u0027Windows Firewall: Public: Inbound connections\u0027 is set to \u0027Block\u0027",
+            "omaUri": "./Vendor/MSFT/Firewall/MdmStore/PublicProfile/DefaultInboundAction",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "9.3.3 (L1) Ensure \u0027Windows Firewall: Public: Outbound connections\u0027 is set to \u0027Allow\u0027",
+            "omaUri": "./Vendor/MSFT/Firewall/MdmStore/PublicProfile/DefaultOutboundAction",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingBoolean",
+            "displayName": "9.3.4 (L1) Ensure \u0027Windows Firewall: Public: Settings: Display a notification\u0027 is set to \u0027Block\u0027",
+            "omaUri": "./Vendor/MSFT/Firewall/MdmStore/PublicProfile/DisableInboundNotifications",
+            "value": true
+        }
+    ]
+}
