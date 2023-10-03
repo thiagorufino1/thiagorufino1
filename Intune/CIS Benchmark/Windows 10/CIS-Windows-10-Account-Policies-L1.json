@@ -1,0 +1,43 @@
+{
+    "@odata.type": "#microsoft.graph.windows10CustomConfiguration",
+    "roleScopeTagIds": [
+        "0"
+    ],
+    "supportsScopeTags": true,
+    "deviceManagementApplicabilityRuleOsEdition": null,
+    "deviceManagementApplicabilityRuleOsVersion": null,
+    "deviceManagementApplicabilityRuleDeviceMode": null,
+    "displayName": "CIS - Windows 10 - Account Policies - L1",
+    "omaSettings": [
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "1.1.1 (L1) Ensure \u0027Enforce password history\u0027 is set to \u002724 or more passwords\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/DeviceLock/DevicePasswordHistory",
+            "value": 24
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "1.1.2 (L1) Ensure \u0027Maximum password age\u0027 is set to \u0027365 or fewer days, but not 0\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/DeviceLock/DevicePasswordExpiration",
+            "value": 0
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "1.1.3 (L1) Ensure \u0027Minimum password age\u0027 is set to \u00271 or more day(s)\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/DeviceLock/MinimumPasswordAge",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "1.1.4 (L1) Ensure \u0027Minimum password length\u0027 is set to \u002714 or more characters\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/DeviceLock/MinDevicePasswordLength",
+            "value": 6
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "1.1.5 (L1) Ensure \u0027Password must meet complexity requirements\u0027 is set to \u0027Numbers, lowercase, uppercase and special characters required\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/DeviceLock/MinDevicePasswordComplexCharacters",
+            "value": 1
+        }
+    ]
+}

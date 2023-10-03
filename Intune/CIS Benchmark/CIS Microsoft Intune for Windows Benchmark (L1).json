@@ -7,7 +7,7 @@
     "deviceManagementApplicabilityRuleOsEdition": null,
     "deviceManagementApplicabilityRuleOsVersion": null,
     "deviceManagementApplicabilityRuleDeviceMode": null,
-    "displayName": "CIS Baseline Microsoft Intune for Windows (L1)",
+    "displayName": "CIS Microsoft Intune for Windows Benchmark",
     "omaSettings": [
         {
             "@odata.type": "#microsoft.graph.omaSettingInteger",
