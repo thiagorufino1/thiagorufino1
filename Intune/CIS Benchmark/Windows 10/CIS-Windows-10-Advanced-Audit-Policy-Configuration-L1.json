@@ -1,0 +1,175 @@
+{
+    "@odata.type": "#microsoft.graph.windows10CustomConfiguration",
+    "roleScopeTagIds": [
+        "0"
+    ],
+    "supportsScopeTags": true,
+    "deviceManagementApplicabilityRuleOsEdition": null,
+    "deviceManagementApplicabilityRuleOsVersion": null,
+    "deviceManagementApplicabilityRuleDeviceMode": null,
+    "displayName": "CIS - Windows 10 - Advanced Audit Policy Configuration - L1",
+    "omaSettings": [
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.1.1 (L1) Ensure \u0027Audit Credential Validation\u0027 is set to \u0027Success and Failure\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/AccountLogon_AuditCredentialValidation",
+            "value": 3
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.2.1 (L1) Ensure \u0027Audit Application Group Management\u0027 is set to \u0027Success and Failure\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/AccountManagement_AuditApplicationGroupManagement",
+            "value": 3
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.2.2 (L1) Ensure \u0027Audit Security Group Management\u0027 is set to include \u0027Success\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/AccountManagement_AuditSecurityGroupManagement",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.2.3 (L1) Ensure \u0027Audit User Account Management\u0027 is set to \u0027Success and Failure\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/AccountManagement_AuditUserAccountManagement",
+            "value": 3
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.3.1 (L1) Ensure \u0027Audit PNP Activity\u0027 is set to include \u0027Success\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/DetailedTracking_AuditPNPActivity",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.3.2 (L1) Ensure \u0027Audit Process Creation\u0027 is set to include \u0027Success\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/DetailedTracking_AuditProcessCreation",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.5.1 (L1) Ensure \u0027Audit Account Lockout\u0027 is set to include \u0027Failure\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/AccountLogonLogoff_AuditAccountLockout",
+            "value": 2
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.5.2 (L1) Ensure \u0027Audit Group Membership\u0027 is set to include \u0027Success\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/AccountLogonLogoff_AuditGroupMembership",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.5.3 (L1) Ensure \u0027Audit Logoff\u0027 is set to include \u0027Success\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/AccountLogonLogoff_AuditLogoff",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.5.4 (L1) Ensure \u0027Audit Logon\u0027 is set to \u0027Success and Failure\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/AccountLogonLogoff_AuditLogon",
+            "value": 3
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.5.5 (L1) Ensure \u0027Audit Other Logon/Logoff Events\u0027 is set to \u0027Success and Failure\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/AccountLogonLogoff_AuditOtherLogonLogoffEvents",
+            "value": 3
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.5.6 (L1) Ensure \u0027Audit Special Logon\u0027 is set to include \u0027Success\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/AccountLogonLogoff_AuditSpecialLogon",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.6.1 (L1) Ensure \u0027Audit Detailed File Share\u0027 is set to include \u0027Failure\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/ObjectAccess_AuditDetailedFileShare",
+            "value": 2
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.6.2 (L1) Ensure \u0027Audit File Share\u0027 is set to \u0027Success and Failure\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/ObjectAccess_AuditFileShare",
+            "value": 3
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.6.3 (L1) Ensure \u0027Audit Other Object Access Events\u0027 is set to \u0027Success and Failure\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/ObjectAccess_AuditOtherObjectAccessEvents",
+            "value": 3
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.6.4 (L1) Ensure \u0027Audit Removable Storage\u0027 is set to \u0027Success and Failure\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/ObjectAccess_AuditRemovableStorage",
+            "value": 3
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.7.1 (L1) Ensure \u0027Audit Audit Policy Change\u0027 is set to include \u0027Success\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/PolicyChange_AuditPolicyChange",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.7.2 (L1) Ensure \u0027Audit Authentication Policy Change\u0027 is set to include \u0027Success\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/PolicyChange_AuditAuthenticationPolicyChange",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.7.3 (L1) Ensure \u0027Audit Authorization Policy Change\u0027 is set to include \u0027Success\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/PolicyChange_AuditAuthorizationPolicyChange",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.7.4 (L1) Ensure \u0027Audit MPSSVC Rule-Level Policy Change\u0027 is set to \u0027Success and Failure\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/PolicyChange_AuditMPSSVCRuleLevelPolicyChange",
+            "value": 3
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.7.5 (L1) Ensure \u0027Audit Other Policy Change Events\u0027 is set to include \u0027Failure\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/PolicyChange_AuditOtherPolicyChangeEvents",
+            "value": 2
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.8.1 (L1) Ensure \u0027Audit Sensitive Privilege Use\u0027 is set to \u0027Success and Failure\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/PrivilegeUse_AuditSensitivePrivilegeUse",
+            "value": 3
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.9.1 (L1) Ensure \u0027Audit IPsec Driver\u0027 is set to \u0027Success and Failure\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/System_AuditIPsecDriver",
+            "value": 3
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.9.2 (L1) Ensure \u0027Audit Other System Events\u0027 is set to \u0027Success and Failure\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/System_AuditOtherSystemEvents",
+            "value": 3
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.9.3 (L1) Ensure \u0027Audit Security State Change\u0027 is set to include \u0027Success\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/System_AuditSecurityStateChange",
+            "value": 3
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.9.4 (L1) Ensure \u0027Audit Security System Extension\u0027 is set to include \u0027Success\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/System_AuditSecuritySystemExtension",
+            "value": 1
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingInteger",
+            "displayName": "17.9.5 (L1) Ensure \u0027Audit System Integrity\u0027 is set to \u0027Success and Failure\u0027",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/Audit/System_AuditSystemIntegrity",
+            "value": 3
+        }
+    ]
+}
