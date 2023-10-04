@@ -21,4 +21,5 @@
     <a href="#"><img src="https://img.shields.io/github/followers/thiagorufino1"/></a>
     <a href="#"><img src="https://img.shields.io/github/forks/thiagorufino1/thiagorufino1"/></a>
     <a href="#"><img src="https://img.shields.io/github/stars/thiagorufino1/thiagorufino1"/></a>
+    <a href="#"><img src="https://api.visitorbadge.io/api/visitors?path=thiagorufino1%2Fthiagorufino1&countColor=%23555555&style=flat"/></a>
 </p>
