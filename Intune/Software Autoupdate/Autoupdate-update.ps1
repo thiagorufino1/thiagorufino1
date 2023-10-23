@@ -53,59 +53,10 @@ function Write-WingetLog {
 
 }
 
-function Get-WingetStatus {
-    $WingetPackage = Get-AppxPackage -Name "Microsoft.DesktopAppInstaller"
-    $WingetPatch = Test-Path $WingetPackage.InstallLocation
-
-    if ($WingetPatch -eq "true") {
-        
-        $WingetDir = $WingetPackage.InstallLocation
-        $Winget = $WingetDir + "\Winget.exe"
-
-        & $Winget list --accept-source-agreements --source winget | Out-Null
-        $WingetVer = & $Winget --version
-
-        Write-WingetLog -Mensagem "Winget Encontrado! Versão: $WingetVer" -Componente "Verificar Winget" -Classificacao Informação
-
-        $upgradeResult = & $Winget upgrade --source winget | Out-String
-
-        return $Winget
-
-    } else {
-        Write-WingetLog -Mensagem "Winget não encontrado !" -Componente "Verificar Winget" -Classificacao Alerta
-
-        Write-WingetLog -Mensagem "Iniciando o download do Winget e componentes." -Componente "Verificar Winget" -Classificacao Alerta
-        $progressPreference = 'silentlyContinue'
-        Invoke-WebRequest -Uri "https://aka.ms/getwinget" -OutFile "C:\Temp\Software-Autoupdate\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
-        Invoke-WebRequest -Uri "https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx" -OutFile "C:\Temp\Software-Autoupdate\Microsoft.VCLibs.x64.14.00.Desktop.appx"
-        Invoke-WebRequest -Uri "https://github.com/microsoft/microsoft-ui-xaml/releases/download/v2.7.3/Microsoft.UI.Xaml.2.7.x64.appx" -OutFile "C:\Temp\Software-Autoupdate\Microsoft.UI.Xaml.2.7.x64.appx"
-
-        Write-WingetLog -Mensagem "Iniciando a instalação Winget e componentes." -Componente "Verificar Winget" -Classificacao Alerta
-        Add-AppxPackage "C:\Temp\Software-Autoupdate\Microsoft.VCLibs.x64.14.00.Desktop.appx" -ErrorAction SilentlyContinue
-        Add-AppxPackage "C:\Temp\Software-Autoupdate\Microsoft.UI.Xaml.2.7.x64.appx" -ErrorAction SilentlyContinue
-        Add-AppxPackage "C:\Temp\Software-Autoupdate\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -ErrorAction SilentlyContinue
-
-        Start-Sleep 30
-
-        $WingetPackage = Get-AppxPackage -Name "Microsoft.DesktopAppInstaller"
-
-        if ($WingetPackage) {
-            Write-WingetLog -Mensagem "Winget instalado com sucesso." -Componente "Verificar Winget" -Classificacao Alerta
-            
-            if (!($upgradeResult -match "-----")) {
-                Write-WingetLog -Mensagem "Nenhuma atualização disponível." -Componente "Verificar Atualizações" -Classificacao Alerta
-
-            }
-            else {
-
-            }
-
-        }
-        else {
-            Write-WingetLog -Mensagem "Falha ao instalar Winget." -Componente "Verificar Winget" -Classificacao Alerta
-
-        }
-    }
+function Invoke-Winget {
+    $WingetPath = Get-ChildItem -Path "C:\Program Files\WindowsApps" -Directory | Where-Object { $_.Name -like "Microsoft.DesktopAppInstaller_*_*__8wekyb3d8bbwe" } | Select-Object -ExpandProperty FullName -First 1
+    $Winget = "$WingetPath\winget.exe"
+    return $Winget
 }
 
 function Get-AppUpdateAvailable {
@@ -117,7 +68,7 @@ function Get-AppUpdateAvailable {
         [string]$AvailableVersion
     }
 
-    $Winget = Get-WingetStatus
+    $Winget = Invoke-Winget
 
     $upgradeResult = & $Winget upgrade --source winget | Out-String
 
@@ -296,7 +247,7 @@ function Set-Notificacao {
 
 function Update-Apps {
 
-    $Winget = Get-WingetStatus
+    $Winget = Invoke-Winget
     $AppsToUpdate = Get-AppUpdateAvailable
     $Permitidos = Get-AppsPermitidos
     $Aviso = Get-Aviso

@@ -60,7 +60,8 @@ if ($WingetPath) {
 
         [bool]$WingetStatus = $true
         $Winget = "$WingetPath\winget.exe"
-        $WingetVer = & $Winget --version
+        & $Winget list --accept-source-agreements
+        $WingetVer = & $Winget --version 
         Write-WingetLog -Mensagem "Winget Encontrado! Versão: $WingetVer." -Componente "Verificar Winget" -Classificacao Informação
 
         $upgradeResult = & $Winget upgrade --source winget
