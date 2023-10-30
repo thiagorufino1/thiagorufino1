@@ -2,7 +2,12 @@
 $clientId = Get-AutomationVariable -Name 'autopilot-client-id'
 $clientSecret = Get-AutomationVariable -Name 'autopilot-secrets'
 $tenantId = Get-AutomationVariable -Name 'autopilot-tenant-id'
- 
+
+# Informações necessárias para enviar dados para o ponto de extremidade DCR.
+$dceEndpoint = ""
+$dcrImmutableId = ""
+$streamName = "Custom-AutopilotEvents"
+
 # Obter token de autenticação
 $authUrl = "https://login.microsoftonline.com/$tenantId/oauth2/token"
 $body = @{
@@ -27,7 +32,7 @@ $currentTime = Get-Date ([datetime]::UtcNow) -Format O
  
 # Definir a data atual e o horário do início do intervalo de 24 horas
 $currentDateTime = [datetime]::ParseExact($currentTime, "yyyy-MM-ddTHH:mm:ss.fffffffK", $null)
-$dateTime24HoursAgo = $currentDateTime.AddHours(-100)
+$dateTime24HoursAgo = $currentDateTime.AddHours(-24)
  
 # Função para converter a duração
 Function Convert-Duration {
@@ -93,11 +98,6 @@ ForEach ($Detail in $AutopilotEvents.Value) {
  
 # Converter array para JSON
 $Devices_Details_Json = $Devices_info_Array | ConvertTo-Json
- 
-# Informações necessárias para enviar dados para o ponto de extremidade DCR.
-$dceEndpoint = "https://dce-autopilot-events-34ev.eastus-1.ingest.monitor.azure.com"
-$dcrImmutableId = "dcr-ef70a3bf47c24fdaa904a4bcce223c8b"
-$streamName = "Custom-AutopilotEvents"
  
 # Obter um token de portador (bearer) usado posteriormente para autenticação no DCE
 $url = "https://monitor.azure.com//.default"
