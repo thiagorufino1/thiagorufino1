@@ -1,6 +1,6 @@
-﻿$subscriptionId = "f1d6****-****-****-****-********82bb"
-$resourceGroupName = "rg-endpoint"
-$workspace = "log-autopilot-events"
+﻿$subscriptionId = "f1******-****-****-****-********82bb"
+$resourceGroupName = "rg-autopilot-events"
+$workspace = "autopilot-events-log"
 
 $tableParams = @'
 {
