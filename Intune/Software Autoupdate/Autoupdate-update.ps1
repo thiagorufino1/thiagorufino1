@@ -10,6 +10,16 @@
         Version: 1.0
 #>
 
+function Set-Directory {
+    $Directory = "C:\Temp\Software-Autoupdate"
+
+    if (!(Test-Path $Directory)) {
+        New-Item -Path $Directory -ItemType Directory -Force
+    }
+
+    Return $Directory
+}
+
 function Write-WingetLog {
 
     param(
@@ -25,7 +35,8 @@ function Write-WingetLog {
         [string]$Classificacao
     );
 
-    $LogDir = "C:\Temp\Software-Autoupdate\Autoupdate.log"
+    $Dir = Set-Directory
+    $LogDir = "$Dir\Autoupdate.log"
 
     if (!(Test-Path $LogDir)) {
         New-Item -Path $LogDir -ItemType File -Force
@@ -73,7 +84,7 @@ function Get-AppUpdateAvailable {
     $upgradeResult = & $Winget upgrade --source winget | Out-String
 
     if (!($upgradeResult -match "-----")) {
-        Write-WingetLog -Mensagem "Nenhuma atualização disponível." -Componente "Verificar Atualizações" -Classificacao Alerta
+        Write-WingetLog -Mensagem "Nenhuma atualização disponível." -Componente "Configuração" -Classificacao Alerta
     }
     else {
 
@@ -126,7 +137,7 @@ function Get-AppUpdateAvailable {
             $WingetVersion = ($WingetApps).Version
             $WingetAvailable = ($WingetApps).AvailableVersion
 
-            Write-WingetLog -Mensagem "Nova versão disponível para o software $WingetName (ID: $WingetID). Versão Atual: $WingetVersion. Versão disponível: $WingetAvailable" -Componente "Verificar Atualizações" -Classificacao Informação
+            Write-WingetLog -Mensagem "ID: $WingetID - Nova versão disponível para o software $WingetName. Versão Atual: $WingetVersion. Versão disponível: $WingetAvailable" -Componente "Nova Atualização" -Classificacao Informação
         }
 
         return $upgradeList | Sort-Object { Get-Random }
@@ -150,18 +161,18 @@ function Get-AppsPermitidos {
         }
     }
 
-    Write-WingetLog -Mensagem "Verificando políticas para softwares permitidos." -Componente "GPO" -Classificacao Alerta
+    Write-WingetLog -Mensagem "Obtendo lista de softwares permitidos." -Componente "Configuração" -Classificacao Alerta
 
     If ($AppList) {
         foreach ($AppPermitido in $AppList) {
-            Write-WingetLog -Mensagem "ID: $AppPermitido" -Componente "Software Permitido" -Classificacao Informação
+            Write-WingetLog -Mensagem "Software Permitido - ID: $AppPermitido" -Componente "Configuração" -Classificacao Informação
         }
 
         return $AppList
 
     }
     else {
-        Write-WingetLog -Mensagem "Nenhuma política encontrada." -Componente "Software Permitido" -Classificacao Alerta
+        Write-WingetLog -Mensagem "Nenhuma política encontrada." -Componente "Configuração" -Classificacao Alerta
     }
 }
 
@@ -181,9 +192,9 @@ function Get-Aviso {
     }
 
     if($AppList){
-        Write-WingetLog -Mensagem "Nível de notificação: $AppList." -Componente "GPO" -Classificacao Informação
+        Write-WingetLog -Mensagem "Nível de notificação: $AppList." -Componente "Configuração" -Classificacao Informação
     } else {
-        Write-WingetLog -Mensagem "Nível de notificação: Todos." -Componente "GPO" -Classificacao Informação
+        Write-WingetLog -Mensagem "Nível de notificação: Todos." -Componente "Configuração" -Classificacao Informação
     }
 
     return $AppList
@@ -197,9 +208,11 @@ Function Confirm-Update {
         $AppVersion
     )
 
-    $JsonFile = "C:\Temp\Software-Autoupdate\InstalledApps.json"
+    $Dir = Set-Directory
+    $Winget = Invoke-Winget
+    $JsonFile = "$Dir\InstalledApps.json"
 
-    & Winget export -s winget -o $JsonFile --include-versions | Out-Null
+    Start-Process $Winget -ArgumentList "export -s winget -o $JsonFile --include-versions" -PassThru -Wait -WindowStyle Hidden
     $Json = Get-Content $JsonFile -Raw | ConvertFrom-Json
 
     $Packages = $Json.Sources.Packages
@@ -248,9 +261,9 @@ function Set-Notificacao {
 function Update-Apps {
 
     $Winget = Invoke-Winget
-    $AppsToUpdate = Get-AppUpdateAvailable
-    $Permitidos = Get-AppsPermitidos
     $Aviso = Get-Aviso
+    $Permitidos = Get-AppsPermitidos
+    $AppsToUpdate = Get-AppUpdateAvailable
 
     if (($null -eq $AppsToUpdate) -or (!$Winget)) {}
     else {
@@ -262,7 +275,7 @@ function Update-Apps {
             $AppVersion = ($AppToUpdate).Version
             $AppAvailable = ($AppToUpdate).AvailableVersion
 
-            Write-WingetLog -Mensagem "ID: $AppID" -Componente "Atualizar Software" -Classificacao Informação
+            #Write-WingetLog -Mensagem "ID: $AppID" -Componente "Atualizar Software" -Classificacao Informação
 
             foreach ($AllowApps in $Permitidos) {
                 if ($AllowApps -eq $AppID) {
@@ -275,13 +288,13 @@ function Update-Apps {
             }
 
             if ($isAllowApps) {
-                Write-WingetLog -Mensagem "Iniciando a atualização do software $AppName da versão $AppVersion para $AppAvailable." -Componente "Atualizar Software" -Classificacao Informação
-                & $Winget upgrade --id $AppID --accept-package-agreements --accept-source-agreements --silent --force --disable-interactivity
+                Write-WingetLog -Mensagem "ID: $AppID - Iniciando a atualização do software $AppName da versão $AppVersion para $AppAvailable." -Componente "Atualizar Software" -Classificacao Informação
+                Start-Process $Winget -ArgumentList "upgrade --id $AppID --accept-package-agreements --accept-source-agreements --silent --force --disable-interactivity" -PassThru -Wait -WindowStyle Hidden
 
                 $StatusInstallation = Confirm-Update -AppID $AppID -AppVersion $AppAvailable
 
                 if ($StatusInstallation) {
-                    Write-WingetLog -Mensagem "Software $AppName atualizado para versão $AppAvailable com sucesso." -Componente "Atualizar Software" -Classificacao Informação
+                    Write-WingetLog -Mensagem "ID: $AppID - Software $AppName atualizado para versão $AppAvailable com sucesso." -Componente "Atualizar Software" -Classificacao Informação
 
                     if($Aviso -ne "Nenhum"){
                         Set-Notificacao -Icone Info -Titulo "$AppName foi atualizado !" -Mensagem "Nova versão: $AppAvailable."
@@ -289,7 +302,7 @@ function Update-Apps {
                     
                 }
                 else {
-                    Write-WingetLog -Mensagem "Falha ao atualizar o Software $AppName para versão $AppAvailable." -Componente "Atualizar Software" -Classificacao Erro
+                    Write-WingetLog -Mensagem "ID: $AppID - Falha ao atualizar o Software $AppName para versão $AppAvailable." -Componente "Atualizar Software" -Classificacao Erro
 
                     if(($Aviso -eq "Todos") -or (!$Aviso)){
                         Set-Notificacao -Icone Error -Titulo "$AppName não foi atualizado !" -Mensagem "Erro ao atualizar para versão $AppAvailable."
@@ -297,7 +310,7 @@ function Update-Apps {
                 }
             }
             else {
-                Write-WingetLog -Mensagem "Atualização não autorizada: O software não esta incluido na lista de aplicativos permitidos." -Componente "Atualizar Software" -Classificacao Informação
+                Write-WingetLog -Mensagem "ID: $AppID - Atualização não autorizada: O software não esta incluido na lista de aplicativos permitidos." -Componente "Atualizar Software" -Classificacao Alerta
 
             }
         }

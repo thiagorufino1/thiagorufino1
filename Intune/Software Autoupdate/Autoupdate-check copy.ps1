@@ -64,27 +64,44 @@ function Write-WingetLog {
 
 }
 
-function Find-Winget {
+function Get-Winget {
 
     $WingetPath = Get-ChildItem -Path "C:\Program Files\WindowsApps" -Directory -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "Microsoft.DesktopAppInstaller_*_*__8wekyb3d8bbwe" } | Select-Object -ExpandProperty FullName -First 1
 
     if ($WingetPath) {
         if (Test-Path -Path "$WingetPath\winget.exe") {
 
+            [bool]$WingetStatus = $true
             $Winget = "$WingetPath\winget.exe"
             $SoftwareList = & $Winget list --accept-source-agreements
             $WingetVer = & $Winget --version
+            $upgradeResult = & $Winget upgrade --source winget
 
-            Write-WingetLog -Mensagem "Winget Instalado ! Versão: $WingetVer." -Componente "Verificar Winget" -Classificacao Informação
-            Return $Winget
+            Write-WingetLog -Mensagem "Winget Encontrado! Versão: $WingetVer." -Componente "Verificar Winget" -Classificacao Informação
+
+            if (!($upgradeResult -match "-----")) {
+                Write-WingetLog -Mensagem "Nenhuma atualização disponível." -Componente "Verificar Atualizações" -Classificacao Alerta
+                [bool]$WingetUpdate = $false
+                Return $WingetUpdate
+
+            }
+            else {
+                Write-WingetLog -Mensagem "Atualizações encontradas, inciando verificações." -Componente "Verificar Atualizações" -Classificacao Informação
+                [bool]$WingetUpdate = $true
+                Return $WingetUpdate
+            }
 
         }
         else {
-            Write-WingetLog -Mensagem "Winget não encontrado!" -Componente "Verificar Winget" -Classificacao Alerta
+            Write-WingetLog -Mensagem "Winget não Encontrado!" -Componente "Verificar Winget" -Classificacao Alerta
+            [bool]$WingetStatus = $false
+            Return $WingetUpdate
         }
     }
     else {
-        Write-WingetLog -Mensagem "Winget não encontrado!" -Componente "Verificar Winget" -Classificacao Alerta
+        Write-WingetLog -Mensagem "Winget não Encontrado!" -Componente "Verificar Winget" -Classificacao Alerta
+        [bool]$WingetStatus = $false
+        Return $WingetUpdate
     }
 }
 
@@ -104,10 +121,11 @@ function Get-AppUpdateAvailable {
     }
 
     $Winget = Invoke-Winget
+
     $upgradeResult = & $Winget upgrade --source winget | Out-String
 
     if (!($upgradeResult -match "-----")) {
-        Return $false
+        Write-WingetLog -Mensagem "Nenhuma atualização disponível." -Componente "Configuração" -Classificacao Alerta
     }
     else {
 
@@ -153,6 +171,16 @@ function Get-AppUpdateAvailable {
             }
         }
 
+        foreach ($WingetApps in $upgradeList) {
+
+            $WingetName = ($WingetApps).Name
+            $WingetID = ($WingetApps).Id
+            $WingetVersion = ($WingetApps).Version
+            $WingetAvailable = ($WingetApps).AvailableVersion
+
+            Write-WingetLog -Mensagem "ID: $WingetID - Nova versão disponível para o software $WingetName. Versão Atual: $WingetVersion. Versão disponível: $WingetAvailable" -Componente "Nova Atualização" -Classificacao Informação
+        }
+
         return $upgradeList | Sort-Object { Get-Random }
 
     }
@@ -174,52 +202,36 @@ function Get-AppsPermitidos {
         }
     }
 
+    Write-WingetLog -Mensagem "Obtendo lista de softwares permitidos." -Componente "Configuração" -Classificacao Alerta
+
     If ($AppList) {
+        foreach ($AppPermitido in $AppList) {
+            Write-WingetLog -Mensagem "Software Permitido - ID: $AppPermitido" -Componente "Configuração" -Classificacao Informação
+        }
+
         return $AppList
+
     }
     else {
-        Return $false
+        Write-WingetLog -Mensagem "Nenhuma política encontrada." -Componente "Configuração" -Classificacao Alerta
     }
 }
 
-function Get-WingetTrigger {
+function WingetTrigger {
 
-    $Winget = Find-Winget
-    $AppsToUpdate = (Get-AppUpdateAvailable).id
+    $Winget = Invoke-Winget
     $Permitidos = Get-AppsPermitidos
-
-    if ($Winget) {
-        if ($AppsToUpdate) {
-
-            Write-WingetLog -Mensagem "Verificando atualizações disponíveis." -Componente "Verificar Atualizações" -Classificacao Informação
-            $UpdateFound = $false
-
-            foreach ($item in $Permitidos){
-                if ($AppsToUpdate -contains $item){
-                    $UpdateFound = $true
-                    break
-                }
-            }
-
-            if ($UpdateFound) {
-                Write-WingetLog -Mensagem "Novas versões de softwares encontradas, iniciando atualizações." -Componente "Verificar Atualizações" -Classificacao Informação
-                #Exit 1
-                #Write-Host "executa o update" -ForegroundColor Green
-            } else {
-                Write-WingetLog -Mensagem "Nenhuma atualização disponível para os softwares permitidos." -Componente "Verificar Atualizações" -Classificacao Informação
-                #Exit 0
-                #Write-Host "não executa o update" -ForegroundColor Red
-            }
-
-        } else {
-            Write-WingetLog -Mensagem "Nenhuma atualização disponível." -Componente "Verificar Atualizações" -Classificacao Informação
-            #Exit 0
-            #Write-Host "não executa o update" -ForegroundColor Red
-        }
-    } else {
-        #Exit 0
-        #Write-Host "Winget nao encontrado" -ForegroundColor Red
-    }
+    $AppsToUpdate = Get-AppUpdateAvailable
+    
 }
 
-Get-WingetTrigger
+$WingetStatus = Get-Winget
+
+if ($WingetStatus -and $WingetUpdate) {
+    #Exit 1
+    Write-Host "1"
+}
+else {
+    #Exit 0
+    Write-Host "0"
+}
