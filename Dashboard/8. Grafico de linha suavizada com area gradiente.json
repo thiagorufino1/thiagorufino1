@@ -1,0 +1,201 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "usermeta": {
+    "deneb": {
+      "build": "1.5.1.0",
+      "metaVersion": 1,
+      "provider": "vegaLite",
+      "providerVersion": "5.6.1"
+    },
+    "interactivity": {
+      "tooltip": true,
+      "contextMenu": true,
+      "selection": true,
+      "highlight": true,
+      "dataPointLimit": 50
+    },
+    "information": {
+      "name": "Grafico de Linha suavizado com rótulo de dados",
+      "description": "[No Description Provided]",
+      "author": "Jefferson Alves (Dados Criativos)",
+      "uuid": "8b47c3bc-2333-434d-ace8-652a288024da",
+      "generated": "2023-06-14T14:02:01.785Z",
+      "previewImageBase64PNG": "data:image/png;base64,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"
+    },
+    "dataset": [
+      {
+        "key": "__0__",
+        "name": "Categoria",
+        "description": "Coluna a ser inserida no eixo x ",
+        "type": "text",
+        "kind": "column"
+      },
+      {
+        "key": "__1__",
+        "name": "Valor",
+        "description": "Medida ",
+        "type": "numeric",
+        "kind": "measure"
+      },
+      {
+        "key": "__2__",
+        "name": "Rotulo",
+        "description": "Medida de texto que servirá de formatação para os rótulos de dados ",
+        "type": "numeric",
+        "kind": "measure"
+      }
+    ]
+  },
+  "config": {
+    "view": {"stroke": "transparent"},
+    "font": "Segoe UI",
+    "area": {
+      "line": true,
+      "fillOpacity": 0.7,
+      "color": {
+        "x1": 0,
+        "x2": 0,
+        "y1": 1,
+        "y2": 0,
+        "gradient": "linear",
+        "stops": [
+          {
+            "offset": 0,
+            "color": "purple"
+          },
+          {
+            "offset": 1,
+            "color": "orange"
+          }
+        ]
+      }
+    },
+    "axis": {
+      "ticks": false,
+      "grid": false,
+      "domain": false,
+      "labelFontSize": 12,
+      "labelFontWeight": 400,
+      "labelColor": "#95A9B8",
+      "title": null
+    },
+    "axisX": {"labelPadding": 5},
+    "axisY": {"labelPadding": 10}
+  },
+  "data": {"name": "dataset"},
+
+
+
+
+  "params": [
+    { "name": "linha_cor", "value": "#EF9010" },
+    { "name": "linha_espessura", "value": 3 },
+
+    { "name": "marcador_tam", "value": 0 },
+    { "name": "marcador_cor", "value": "#EF9010" },
+    { "name": "marcador_linha_espessura", "value": 2  },
+    { "name": "marcador_borda_cor", "value": "#fff"},
+    
+    { "name": "valor_cor", "value": "#95A9B8" },
+    { "name": "valor_tam", "value": 11 },
+    { "name": "valor_peso", "value": 600 },
+    { "name": "valor_posicao", "value": -7 }
+  ],
+
+
+
+
+
+
+  "encoding": {
+    "x": {
+      "type": "nominal",
+      "field": "__0__",
+      "sort": ["jan"],
+      "axis": {
+        "labelAngle": 0,
+        "labelPadding": 10
+      }
+    },
+    "y": {
+      "type": "quantitative",
+      "field": "__1__",
+      "axis": null
+    },
+    "opacity": {
+      "condition": {
+        "test": "datum['__selected__'] == 'off' ",
+        "value": 0.3
+      },
+      "value": 1
+    }
+  },
+  "layer": [
+    {
+      "description": " ************************* AREA **************************",
+      "mark": {
+        "type": "area",
+        "interpolate": "natural",
+        "line": {
+          "stroke": {
+            "expr": "linha_cor"
+          },
+          "strokeWidth": {
+            "expr": "linha_espessura"
+          },
+          "strokeCap": "round",
+          "strokeJoin": "round",
+          "strokeDash": [0, 0]
+        },
+        "point": {
+          "shape": "circle",
+          "size": {
+            "expr": "marcador_tam"
+          },
+          "filled": false,
+          "fill": {
+            "expr": "marcador_cor"
+          },
+          "stroke": {
+            "expr": "marcador_borda_cor"
+          },
+          "strokeWidth": {
+            "expr": "marcador_linha_espessura"
+          },
+          "tooltip": true
+        }
+      },
+      "encoding": {
+        "tooltip": [
+          {"field": "__0__"},
+          {"field": "__1__"}
+        ]
+      }
+    },
+    {
+      "description": " ******************** RÓTULO DADOS  ***********************",
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "dx": 0,
+        "baseline": "bottom",
+        "angle": 0,
+        "dy": {
+          "expr": "datum['__1__'] >= 0 ? valor_posicao : valor_posicao * -1 "
+        },
+        "color": {"expr": "valor_cor"},
+        "fontSize": {
+          "expr": "valor_tam"
+        },
+        "fontWeight": {
+          "expr": "valor_peso"
+        }
+      },
+      "encoding": {
+        "text": {
+          "field": "__2__"
+        }
+      }
+    }
+  ]
+}
