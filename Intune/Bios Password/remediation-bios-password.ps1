@@ -17,25 +17,29 @@ $tenantId = "783f9353-3381-4168-b6bc-a439b25dfc6a"
 
 # Key Vault
 $keyVaultName = "kv-bios-pwd"
-$NewSecretName = "FEV-2024"
+$NewSecretName = "JAN-2024"
+
+Import-Module DellBIOSProvider
 
 function Set-Directory {
-    $Directory = "C:\Temp\Bios-Password"
-
+    $Directory = "C:\Temp\BiosPassword"
+ 
     if (!(Test-Path $Directory)) {
-        New-Item -Path $Directory -ItemType Directory -Force
+        $DirResult = New-Item -Path $Directory -ItemType Directory -Force -InformationAction Stop
+        Return $DirResult.FullName
     }
-
-    Return $Directory
+    else {
+        Return $Directory
+    }
 }
-
+ 
 function Write-Log {
-
+ 
     param(
         [Parameter(Mandatory = $True, HelpMessage = "Inserir a mensagem para ser adicionada no log.")][string]$Mensagem,
         [Parameter(Mandatory = $True, HelpMessage = "Inserir o componente responsagem por essa linha do log.")][String]$Componente,
         [parameter(Mandatory = $true, HelpMessage = "Definir a classicação do tipo de log:
-
+ 
         Informação
         Alerta
         Erro")]
@@ -43,34 +47,36 @@ function Write-Log {
         [ValidateSet("Informação", "Alerta", "Erro")]
         [string]$Classificacao
     );
-
+ 
     $Dir = Set-Directory
-    $LogDir = "$Dir\bios-password.log"
-
+    $LogName = "BiosPassword.log"
+    $LogDir = "$Dir\$LogName"
+ 
     if (!(Test-Path $LogDir)) {
-        New-Item -Path $LogDir -ItemType File -Force
+        New-Item -Name $LogName -Path $Dir -ItemType File -Force
+        
     }
-
+ 
     if (-not(Test-Path -Path 'variable:global:TimezoneBias')) {
         [string]$global:TimezoneBias = [System.TimeZoneInfo]::Local.GetUtcOffset((Get-Date)).TotalMinutes
-
+ 
         if ($TimezoneBias -match "^-") {
             $TimezoneBias = $TimezoneBias.Replace('-', '+')
         }
-
+ 
         else {
             $TimezoneBias = '-' + $TimezoneBias
         }
     }
-
+ 
     $Time = -join @((Get-Date -Format "HH:mm:ss.fff"), $TimezoneBias)
     $Date = (Get-Date -Format "dd-MM-yyyy")
     $Context = $([System.Security.Principal.WindowsIdentity]::GetCurrent().Name)
-
+ 
     $logmessage = "<![LOG[$Mensagem]LOG]!><time=`"$($time)`" date=`"$($date)`" component=`"$($Componente)`" context=`"$($Context)`" type=`"$($Classificacao)`" thread=`"$($PID)`">";
-
+ 
     Out-File -FilePath $LogDir -Append -InputObject $logmessage -Encoding UTF8;
-
+ 
 }
 
 function Get-NewPwd {
@@ -168,7 +174,7 @@ function Set-Pwd {
         return $true
     }
     catch {
-        Write-Host "Erro ao definir a senha. Tentando próximo item..."
+        return $false
     }
     
 }
@@ -176,30 +182,29 @@ function Set-Pwd {
 $IsPwdSet = Get-isPwdSet
 
 if ($IsPwdSet -eq "True") {
-    Write-Log -Mensagem "BIOS já possui senha definida, iniciando a atualização." -Componente "Atualizar Senha" -Classificacao Informação
+    Write-Log -Mensagem "A senha da BIOS já está configurada. Iniciando o processo de atualização." -Componente "Atualizar Senha" -Classificacao Informação
 
     $UpdateStatus = Update-Pwd
 
     if ($UpdateStatus -eq $true) {
-        Write-Log -Mensagem "Atualização bem sucedida." -Componente "Atualizar Senha" -Classificacao Informação
+        Write-Log -Mensagem "A atualização foi concluída com sucesso." -Componente "Atualizar Senha" -Classificacao Informação
     }
     else {
-        Write-Log -Mensagem "Falha ao atualizar a senha da BIOS, nenhuma das senhas antigas cadastradas no Key Vault é compativel com a senha definida neste computador." -Componente "Atualizar Senha" -Classificacao Informação
+        Write-Log -Mensagem "A atualização da senha da BIOS falhou. Nenhuma das senhas antigas armazenadas no Key Vault é compatível com a senha definida neste computador." -Componente "Atualizar Senha" -Classificacao Informação
     }
 
 }
 elseif ($IsPwdSet -eq "False") {
-    Write-Log -Mensagem "BIOS não possui senha definida, iniciando a definicão da senha da BIOS." -Componente "Definir Senha" -Classificacao Informação
     
     $SetStatus = Set-Pwd
     if ($SetStatus -eq $true) {
-        Write-Log -Mensagem "Senha definida com sucesso." -Componente "Definir Senha" -Classificacao Informação
+        Write-Log -Mensagem "A senha $NewSecretName foi configurada com sucesso." -Componente "Definir Senha" -Classificacao Informação
     }
     else {
-        Write-Log -Mensagem "Falha ao definir senha." -Componente "Definir Senha" -Classificacao Informação
+        Write-Log -Mensagem "A definição da senha falhou." -Componente "Definir Senha" -Classificacao Informação
     }
 
 }
 else {
-    Write-Log -Mensagem "Erro ao iniciar a definição de senha." -Componente "Erro Senha" -Classificacao Informação
+    Write-Log -Mensagem "A definição da senha da BIOS falhou." -Componente "Erro" -Classificacao Informação
 }
