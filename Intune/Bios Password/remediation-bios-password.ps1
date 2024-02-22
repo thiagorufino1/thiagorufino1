@@ -152,12 +152,12 @@ function Update-Pwd {
 
         try {
             Set-Item -Path DellSmbios:\Security\AdminPassword "$NewPwd" -Password "$($item.Value)" -ErrorAction Stop
-            Write-Log -Mensagem "Senha $NewSecretName definida com sucesso, senha $($item.Name) utilizada como antiga." -Componente "Atualizar Senha" -Classificacao Informação
+            Write-Log -Mensagem "Senha $NewSecretName definida com sucesso, utilizando $($item.Name) como senha anterior." -Componente "Atualizar Senha" -Classificacao Informação
 
             return $true
         }
         catch {
-            Write-Log -Mensagem "A Secret $($item.Name) não foi aceita como senha antiga." -Componente "Atualizar Senha" -Classificacao Informação
+            Write-Log -Mensagem "A Senha $($item.Name) não está configurada neste dispositivo e, portanto, não pode ser usada para alterar a senha." -Componente "Atualizar Senha" -Classificacao Informação
         }
         
     }
