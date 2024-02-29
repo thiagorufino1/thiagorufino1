@@ -17,7 +17,7 @@ $tenantId = "783f9353-3381-4168-b6bc-a439b25dfc6a"
 
 # Key Vault
 $keyVaultName = "kv-bios-pwd"
-$NewSecretName = "JAN-2024"
+$NewSecretName = "FEV-2024"
 
 function Set-Directory {
     $Directory = "C:\Temp\BiosPassword"
@@ -135,7 +135,6 @@ function Get-NewPwd {
 function Get-LastPwd {
     $NewPwd = Get-NewPwd
     Set-Item -Path DellSmbios:\Security\AdminPassword "$NewPwd" -Password "$NewPwd" -ErrorAction SilentlyContinue
-    #Set-Item -Path DellSmbios:\Security\AdminPassword "" -Password "$NewPwd"
 
     return $?
 }
