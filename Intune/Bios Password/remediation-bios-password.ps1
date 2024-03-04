@@ -17,7 +17,7 @@ $tenantId = "783f9353-3381-4168-b6bc-a439b25dfc6a"
 
 # Key Vault
 $keyVaultName = "kv-bios-pwd"
-$NewSecretName = "FEV-2024"
+$NewSecretName = "JAN-2024"
 
 Import-Module DellBIOSProvider
 
