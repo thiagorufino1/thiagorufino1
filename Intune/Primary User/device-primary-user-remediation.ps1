@@ -1,4 +1,4 @@
-﻿<#
+<#
     .DESCRIPTION
         O Script tem como objetivo de atualizar o primary user do dispositivo
 
@@ -136,6 +136,26 @@ function Get-UserID {
     }    
 }
 
+function Set-NewPrimaryUser {
+
+    param (
+        [string]$DeviceID,
+        [string]$UserID
+    )
+    
+    try {
+        $DeviceIDUri = "https://graph.microsoft.com/beta/deviceManagement/manageddevices('$DeviceID')/users/`$ref"
+        $UserIDUri = "https://graph.microsoft.com/beta/users/" + $UserID
+        $id = "@odata.id"
+        $Body = @{ $id = "$UserIDUri" } | ConvertTo-Json -Compress
+        $response = (Invoke-RestMethod -Uri $DeviceIDUri -Headers $headers -Method POST -Body $Body)
+        return $response
+    }
+    catch {
+        Write-output "Error : $($error[0].exception.message)"
+    }
+}
+
 function Get-CurrentlyPrimaryUser {
 
     param (
@@ -174,4 +194,10 @@ function Test-PrimaryUser {
     
 }
 
-if(Test-PrimaryUser){Exit 0} else {Exit 1}
+if(Check-PrimaryUser){
+    Write-Host "ok"
+    Exit 0
+} else {
+    Write-Host "nok"
+    Exit 1
+}
