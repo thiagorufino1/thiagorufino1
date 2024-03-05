@@ -34,12 +34,6 @@ $headers = @{
     'Content-Type' = 'application/json'
 }
 
-#$DeviceName = $env:COMPUTERNAME
-$DeviceName = "W10-02"
-
-#$LocalUser = $env:USERNAME + '@'
-$LocalUser = 'admin@'
-
 function Set-Directory {
     $Directory = "C:\Temp\PrimaryUser"
  
@@ -98,38 +92,26 @@ function Write-Log {
  
 }
 
-function Get-DeviceID {
+function Get-LocalDevice {
     
     try {
         $DeviceUri = "https://graph.microsoft.com/beta/deviceManagement/managedDevices?`$filter=deviceName eq '$DeviceName'"
         $DeviceResponse = (Invoke-RestMethod -Uri $DeviceUri -Headers $headers -Method Get)
-        $DeviceID = $DeviceResponse.value.id
-
-        Write-Log -Mensagem "Informações do Dispositivo:" -Componente "Get-DeviceID" -Classificacao Informação
-        Write-Log -Mensagem "ID: $DeviceID." -Componente "Get-DeviceID" -Classificacao Informação
-        Write-Log -Mensagem "Nome: $($DeviceResponse.value.deviceName)." -Componente "Get-DeviceID" -Classificacao Informação
-        
-
-        return $DeviceID
+        $Device = $DeviceResponse.value
+        return $Device
     }
     catch {
         Write-Log -Mensagem "Error : $($error[0].exception.message)" -Componente "Get-DeviceID" -Classificacao Informação
     }
 }
 
-function Get-UserID {
+function Get-LocalUser {
 
     try {
         $UserUri = "https://graph.microsoft.com/v1.0/users?`$select=id,displayName,userPrincipalName&`$filter=startsWith(userPrincipalName,'$($LocalUser)')"
         $UserResponse = (Invoke-RestMethod -Uri $UserUri -Headers $headers -Method Get)
-        $UserID = $UserResponse.value.id
-
-        Write-Log -Mensagem "Informações do Usuário:" -Componente "Get-DeviceID" -Classificacao Informação
-        Write-Log -Mensagem "ID: $UserID." -Componente "Get-UserID" -Classificacao Informação
-        Write-Log -Mensagem "Nome: $($UserResponse.value.displayName)." -Componente "Get-UserID" -Classificacao Informação
-        Write-Log -Mensagem "UserPrincipalName: $($UserResponse.value.userPrincipalName)" -Componente "Get-UserID" -Classificacao Informação
-
-        return $UserID
+        $User = $UserResponse.value
+        return $User
     }
     catch {
         Write-Log -Mensagem "Error : $($error[0].exception.message)" -Componente "Get-UserID" -Classificacao Informação
@@ -139,18 +121,14 @@ function Get-UserID {
 function Get-CurrentlyPrimaryUser {
 
     param (
-        $DeviceID
+        [string]$DeviceID
     )
+
     try {
         $PrimaryUserUri = "https://graph.microsoft.com/beta/deviceManagement/manageddevices('$DeviceID')/users"
         $PrimaryUserResponse = (Invoke-RestMethod -Uri $PrimaryUserUri -Headers $headers -Method Get)
-        $PrimaryUserID = $PrimaryUserResponse.value.id
-
-        Write-Log -Mensagem "Usuário: $($PrimaryUserResponse.value.displayName) 
-        UserPrincipalName: $($PrimaryUserResponse.value.userPrincipalName) 
-        ID: $PrimaryUserID." -Componente "Get-CurrentlyPrimaryUser" -Classificacao Informação
-
-        return $PrimaryUserID
+        $PrimaryUser = $PrimaryUserResponse.value
+        return $PrimaryUser
     }
     catch {
         Write-Log -Mensagem "Error : $($error[0].exception.message)" -Componente "Get-CurrentlyPrimaryUser" -Classificacao Informação
@@ -159,19 +137,53 @@ function Get-CurrentlyPrimaryUser {
 
 function Test-PrimaryUser {
 
-    $DID = Get-DeviceID
-    $UID = Get-UserID
-    $CurrentlyPrimaryUser = Get-CurrentlyPrimaryUser -DeviceID $DID
+    param(
+        [string]$UserID,
+        [string]$CurrentlyPrimaryUserID
+    )
 
-    if ($UID -eq $CurrentlyPrimaryUser) {
-        Write-Log -Mensagem "Primary User correto" -Componente "Check-PrimaryUser" -Classificacao Informação
+    if ($UserID -eq $CurrentlyPrimaryUserID) {
+        Write-Log -Mensagem "Primary User esta correto." -Componente "Test-PrimaryUser" -Classificacao Informação
         return $true
     }
     else {
-        Write-Log -Mensagem "Primary User incorreto" -Componente "Check-PrimaryUser" -Classificacao Informação
+        Write-Log -Mensagem "Primary User esta incorreto." -Componente "Test-PrimaryUser" -Classificacao Informação
         return $false
     }
     
 }
 
-if(Test-PrimaryUser){Exit 0} else {Exit 1}
+# Nome do dispositivo e usuário
+#$DeviceName = $env:COMPUTERNAME
+$DeviceName = "W10-02"
+
+#$LocalUser = $env:USERNAME + '@'
+$LocalUser = 'admin@'
+
+$Device = Get-LocalDevice
+$User = Get-LocalUser
+
+if($Device){
+    Write-Log -Mensagem "Dispositivo:  $($Device.deviceName) ($($Device.id))" -Componente "Get-LocalDevice" -Classificacao Informação
+
+    if($User){
+        Write-Log -Mensagem "Usuário Local:  $($User.userPrincipalName) ($($User.id))" -Componente "Get-LocalUser" -Classificacao Informação
+        $CurrentlyPrimaryUser = Get-CurrentlyPrimaryUser -DeviceID $Device.id
+
+        if($CurrentlyPrimaryUser){
+            Write-Log -Mensagem "Primary User Atual:  $($CurrentlyPrimaryUser.userPrincipalName) ($($CurrentlyPrimaryUser.id))" -Componente "Get-CurrentlyPrimaryUser" -Classificacao Informação
+
+            $StatusPrimaryUser = Test-PrimaryUser -UserID $User.id -CurrentlyPrimaryUserID $CurrentlyPrimaryUser.id
+            if($StatusPrimaryUser -eq $true){Write-Host "OK"} else {Write-Host "NOK"}
+
+        } else {
+            Write-Log -Mensagem "Erro ao obter ID do Primary User definido atualmente." -Componente "Erro ao Obter ID" -Classificacao Informação
+        }
+
+    } else {
+        Write-Log -Mensagem "Erro ao obter ID do usuário local." -Componente "Erro ao Obter ID" -Classificacao Informação
+    }
+
+} else {
+    Write-Log -Mensagem "Erro ao obter ID do dispositivo." -Componente "Erro ao Obter ID" -Classificacao Informação
+}
