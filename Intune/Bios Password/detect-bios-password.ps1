@@ -25,7 +25,8 @@ function Set-Directory {
     if (!(Test-Path $Directory)) {
         $DirResult = New-Item -Path $Directory -ItemType Directory -Force -InformationAction Stop
         Return $DirResult.FullName
-    } else {
+    }
+    else {
         Return $Directory
     }
 }
@@ -77,26 +78,21 @@ function Write-Log {
 }
 
 function Get-DellModule {
-    
-    if (!$(Get-Module DellBIOSProvider)) {
- 
-        Write-Log -Mensagem "O módulo DellBIOSProvider não foi localizado." -Componente "Get-DellModule" -Classificacao Informação
-        Write-Log -Mensagem "Iniciando a instalação do módulo DellBIOSProvider." -Componente "Get-DellModule" -Classificacao Informação
-        Install-Module DellBIOSProvider -Force -Scope AllUsers -ErrorAction SilentlyContinue
 
-        Import-Module DellBIOSProvider -Force -ErrorAction SilentlyContinue
-        Import-Module DellBIOSProvider -Force -ErrorAction SilentlyContinue
-
+    if (Test-Path -Path "C:\Program Files\WindowsPowerShell\Modules\DellBIOSProvider") {
+        Import-Module -Name DellBIOSProvider -ErrorAction SilentlyContinue
     }
     else {
-        Import-Module DellBIOSProvider
+        Install-Module -Name DellBIOSProvider -Force -Scope AllUsers -ErrorAction SilentlyContinue
+        Start-Sleep 5
+        Import-Module -Name DellBIOSProvider -ErrorAction SilentlyContinue
     }
 
-    $DellModule = Get-Module DellBIOSProvider
+    $DellBIOSProvider = Get-Module DellBIOSProvider
  
-    if ($DellModule) {
+    if ($DellBIOSProvider) {
  
-        Write-Log -Mensagem "O módulo DellBIOSProvider na versão $($DellModule.Version) foi encontrado." -Componente "Get-DellModule" -Classificacao Informação
+        Write-Log -Mensagem "O módulo DellBIOSProvider na versão $($DellBIOSProvider.Version) foi encontrado." -Componente "Get-DellModule" -Classificacao Informação
         return $true
        
     }
@@ -139,29 +135,30 @@ function Get-LastPwd {
     return $?
 }
 
-Import-Module DellBIOSProvider
-
 $ModuloStatus = Get-DellModule
 
-if ($ModuloStatus -eq "True"){
+if ($ModuloStatus -eq "True") {
 
     $SetPwdStatus = Get-isPwdSet
-    if ($SetPwdStatus -eq "True"){
+    if ($SetPwdStatus -eq "True") {
 
         $LastPwdStatus = Get-LastPwd
-        if ($LastPwdStatus -eq "True"){
+        if ($LastPwdStatus -eq "True") {
             Write-Log -Mensagem "A senha já está atualizada com a versão mais recente." -Componente "Verificar BIOS" -Classificacao Informação
             Exit 0
-        } else {
+        }
+        else {
             Write-Log -Mensagem "A senha da BIOS está desatualizada. Iniciando o processo de atualização." -Componente "Verificar BIOS" -Classificacao Informação
             Exit 1
         }
 
-    } else {
+    }
+    else {
         Write-Log -Mensagem "O dispositivo não tem senha definida na BIOS. Iniciando o processo de definição." -Componente "Verificar BIOS" -Classificacao Informação
         Exit 1
     }
 
-} else {
+}
+else {
     Exit 0
 }
