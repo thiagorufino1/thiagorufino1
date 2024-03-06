@@ -143,11 +143,9 @@ function Test-PrimaryUser {
     )
 
     if ($UserID -eq $CurrentlyPrimaryUserID) {
-        Write-Log -Mensagem "Primary User esta correto." -Componente "Test-PrimaryUser" -Classificacao Informação
         return $true
     }
     else {
-        Write-Log -Mensagem "Primary User esta incorreto." -Componente "Test-PrimaryUser" -Classificacao Informação
         return $false
     }
     
@@ -172,21 +170,31 @@ if ($Device) {
 
         if ($CurrentlyPrimaryUser) {
             Write-Log -Mensagem "Primary User Atual:  $($CurrentlyPrimaryUser.userPrincipalName) ($($CurrentlyPrimaryUser.id))" -Componente "Get-CurrentlyPrimaryUser" -Classificacao Informação
-
             $StatusPrimaryUser = Test-PrimaryUser -UserID $User.id -CurrentlyPrimaryUserID $CurrentlyPrimaryUser.id
-            if ($StatusPrimaryUser -eq $true) { Write-Host "OK" } else { Write-Host "NOK" }
+
+            if ($StatusPrimaryUser -eq $true) { 
+                Write-Log -Mensagem "O Usuário $($User.userPrincipalName) já esta definido com Primary User para o dispositivo $($Device.deviceName)." -Componente "Status" -Classificacao Informação
+                Exit 0
+            }
+            else { 
+                Write-Log -Mensagem "O Usuário $($User.userPrincipalName) não esta definido como Primary User para o dispositivo $($Device.deviceName)." -Componente "Status" -Classificacao Informação
+                Exit 1
+            }
 
         }
         else {
-            Write-Log -Mensagem "Erro ao obter ID do Primary User definido atualmente." -Componente "Erro ao Obter ID" -Classificacao Informação
+            Write-Log -Mensagem "Erro ao recuperar o ID do usuário definido atualmente como primary user." -Componente "Error" -Classificacao Informação
+            Exit 0
         }
 
     }
     else {
-        Write-Log -Mensagem "Erro ao obter ID do usuário local." -Componente "Erro ao Obter ID" -Classificacao Informação
+        Write-Log -Mensagem "Erro ao recuperar o ID do usuário deste dispositivo." -Componente "Error" -Classificacao Informação
+        Exit 0
     }
 
 }
 else {
-    Write-Log -Mensagem "Erro ao obter ID do dispositivo." -Componente "Erro ao Obter ID" -Classificacao Informação
+    Write-Log -Mensagem "Erro ao recuperar o ID deste dispositivo." -Componente "Error" -Classificacao Informação
+    Exit 0
 }
