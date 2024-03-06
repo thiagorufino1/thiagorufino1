@@ -101,7 +101,7 @@ function Get-LocalDevice {
         return $Device
     }
     catch {
-        Write-Log -Mensagem "Error : $($error[0].exception.message)" -Componente "Get-DeviceID" -Classificacao Informação
+        Write-Log -Mensagem "Error : $($error[0].exception.message)" -Componente "Get-LocalDevice" -Classificacao Informação
     }
 }
 
@@ -114,7 +114,7 @@ function Get-LocalUser {
         return $User
     }
     catch {
-        Write-Log -Mensagem "Error : $($error[0].exception.message)" -Componente "Get-UserID" -Classificacao Informação
+        Write-Log -Mensagem "Error : $($error[0].exception.message)" -Componente "Get-LocalUser" -Classificacao Informação
     }    
 }
 
@@ -163,27 +163,30 @@ $LocalUser = 'admin@'
 $Device = Get-LocalDevice
 $User = Get-LocalUser
 
-if($Device){
+if ($Device) {
     Write-Log -Mensagem "Dispositivo:  $($Device.deviceName) ($($Device.id))" -Componente "Get-LocalDevice" -Classificacao Informação
 
-    if($User){
+    if ($User) {
         Write-Log -Mensagem "Usuário Local:  $($User.userPrincipalName) ($($User.id))" -Componente "Get-LocalUser" -Classificacao Informação
         $CurrentlyPrimaryUser = Get-CurrentlyPrimaryUser -DeviceID $Device.id
 
-        if($CurrentlyPrimaryUser){
+        if ($CurrentlyPrimaryUser) {
             Write-Log -Mensagem "Primary User Atual:  $($CurrentlyPrimaryUser.userPrincipalName) ($($CurrentlyPrimaryUser.id))" -Componente "Get-CurrentlyPrimaryUser" -Classificacao Informação
 
             $StatusPrimaryUser = Test-PrimaryUser -UserID $User.id -CurrentlyPrimaryUserID $CurrentlyPrimaryUser.id
-            if($StatusPrimaryUser -eq $true){Write-Host "OK"} else {Write-Host "NOK"}
+            if ($StatusPrimaryUser -eq $true) { Write-Host "OK" } else { Write-Host "NOK" }
 
-        } else {
+        }
+        else {
             Write-Log -Mensagem "Erro ao obter ID do Primary User definido atualmente." -Componente "Erro ao Obter ID" -Classificacao Informação
         }
 
-    } else {
+    }
+    else {
         Write-Log -Mensagem "Erro ao obter ID do usuário local." -Componente "Erro ao Obter ID" -Classificacao Informação
     }
 
-} else {
+}
+else {
     Write-Log -Mensagem "Erro ao obter ID do dispositivo." -Componente "Erro ao Obter ID" -Classificacao Informação
 }
