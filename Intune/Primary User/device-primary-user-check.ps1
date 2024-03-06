@@ -151,12 +151,8 @@ function Test-PrimaryUser {
     
 }
 
-# Nome do dispositivo e usuário
-#$DeviceName = $env:COMPUTERNAME
-$DeviceName = "W10-02"
-
-#$LocalUser = $env:USERNAME + '@'
-$LocalUser = 'admin@'
+$DeviceName = $env:COMPUTERNAME
+$LocalUser = $env:USERNAME + '@'
 
 $Device = Get-LocalDevice
 $User = Get-LocalUser
