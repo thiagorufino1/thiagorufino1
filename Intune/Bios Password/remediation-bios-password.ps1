@@ -13,8 +13,8 @@ $clientSecret = "pV18Q~gnQNDrYomVOZ6d1wzNPMJFzV~1DN2RLc1."
 $tenantId = "783f9353-3381-4168-b6bc-a439b25dfc6a"
 
 # Key Vault
-$keyVaultName = "kv-bios-pwd"
-$NewSecretName = "JAN-2024"
+$keyVaultName = "kv-bios-pwd"  #Nome do Key Vault.
+$NewSecretName = "FEV-2024"    #Nome da secret com a senha mais recente.
 
 Import-Module DellBIOSProvider
 
