@@ -1,7 +1,4 @@
 ﻿<#
-    .DESCRIPTION
-        O Script tem como objetivo implementar ou atualizar a senha da BIOS utilizando Intune e Azure Key Vault
-
     .NOTES
         Criado por: Thiago Rufino
         thiagorufino.com

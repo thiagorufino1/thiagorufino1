@@ -1,7 +1,4 @@
 ﻿<#
-    .DESCRIPTION
-        O Script tem como objetivo implementar ou atualizar a senha da BIOS utilizando Intune e Azure Key Vault
-
     .NOTES
         Criado por: Thiago Rufino
         thiagorufino.com
@@ -77,14 +74,21 @@ function Write-Log {
  
 }
 
+function Get-Manufacturer {
+    $Manufacturer = (Get-WmiObject Win32_ComputerSystem).Manufacturer
+    Return $Manufacturer
+}
+
 function Get-DellModule {
 
     if (Test-Path -Path "C:\Program Files\WindowsPowerShell\Modules\DellBIOSProvider") {
         Import-Module -Name DellBIOSProvider -ErrorAction SilentlyContinue
     }
     else {
+        Install-PackageProvider -Name Nuget -Force -ErrorAction SilentlyContinue
+        Start-Sleep 2
         Install-Module -Name DellBIOSProvider -Force -Scope AllUsers -ErrorAction SilentlyContinue
-        Start-Sleep 5
+        Start-Sleep 2
         Import-Module -Name DellBIOSProvider -ErrorAction SilentlyContinue
     }
 
@@ -92,7 +96,7 @@ function Get-DellModule {
  
     if ($DellBIOSProvider) {
  
-        Write-Log -Mensagem "O módulo DellBIOSProvider na versão $($DellBIOSProvider.Version) foi encontrado." -Componente "Get-DellModule" -Classificacao Informação
+        Write-Log -Mensagem "O módulo DellBIOSProvider (versão $($DellBIOSProvider.Version)) foi encontrado." -Componente "Get-DellModule" -Classificacao Informação
         return $true
        
     }
@@ -136,29 +140,38 @@ function Get-LastPwd {
 }
 
 $ModuloStatus = Get-DellModule
+$Fabricante = Get-Manufacturer
 
-if ($ModuloStatus -eq "True") {
+if ($Fabricante -like "*Dell*") {
 
-    $SetPwdStatus = Get-isPwdSet
-    if ($SetPwdStatus -eq "True") {
+    if ($ModuloStatus -eq "True") {
 
-        $LastPwdStatus = Get-LastPwd
-        if ($LastPwdStatus -eq "True") {
-            Write-Log -Mensagem "A senha já está atualizada com a versão mais recente." -Componente "Verificar BIOS" -Classificacao Informação
-            Exit 0
+        $SetPwdStatus = Get-isPwdSet
+        if ($SetPwdStatus -eq "True") {
+
+            $LastPwdStatus = Get-LastPwd
+            if ($LastPwdStatus -eq "True") {
+                Write-Log -Mensagem "A senha já está atualizada com a versão mais recente." -Componente "Verificar BIOS" -Classificacao Informação
+                Exit 0
+            }
+            else {
+                Write-Log -Mensagem "A senha da BIOS está desatualizada. Iniciando o processo de atualização." -Componente "Verificar BIOS" -Classificacao Informação
+                Exit 1
+            }
+
         }
         else {
-            Write-Log -Mensagem "A senha da BIOS está desatualizada. Iniciando o processo de atualização." -Componente "Verificar BIOS" -Classificacao Informação
+            Write-Log -Mensagem "O dispositivo não tem senha definida na BIOS. Iniciando o processo de definição." -Componente "Verificar BIOS" -Classificacao Informação
             Exit 1
         }
 
     }
     else {
-        Write-Log -Mensagem "O dispositivo não tem senha definida na BIOS. Iniciando o processo de definição." -Componente "Verificar BIOS" -Classificacao Informação
-        Exit 1
+        Write-Log -Mensagem "O Módulo DellBIOSProvider não foi encontrado." -Componente "Verificar Módulo" -Classificacao Informação
+        Exit 0
     }
-
 }
 else {
+    Write-Log -Mensagem "Este dispositivo não é um equipamento Dell, portanto, esta solução não é compatível." -Componente "Verificar Fabricante" -Classificacao Informação
     Exit 0
 }
