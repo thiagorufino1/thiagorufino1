@@ -1,12 +1,9 @@
 ﻿<#
-    .DESCRIPTION
-        O Script tem como objetivo de atualizar o primary user do dispositivo
-
     .NOTES
         Criado por: Thiago Rufino
         thiagorufino.com
 
-        Data: 04/03/2024
+        Data: 10/03/2024
         Version: 1.0
 #>
 
@@ -34,11 +31,8 @@ $headers = @{
     'Content-Type' = 'application/json'
 }
 
-#$DeviceName = $env:COMPUTERNAME
-$DeviceName = "W10-02"
-
-#$LocalUser = $env:USERNAME + '@'
-$LocalUser = 'admin@'
+$DeviceName = $env:COMPUTERNAME
+$LocalUser = $env:USERNAME + '@'
 
 function Set-Directory {
     $Directory = "C:\Temp\PrimaryUser"

@@ -1,12 +1,9 @@
 ﻿<#
-    .DESCRIPTION
-        O Script tem como objetivo de atualizar o primary user do dispositivo
-
     .NOTES
         Criado por: Thiago Rufino
         thiagorufino.com
 
-        Data: 04/03/2024
+        Data: 10/03/2024
         Version: 1.0
 #>
 
