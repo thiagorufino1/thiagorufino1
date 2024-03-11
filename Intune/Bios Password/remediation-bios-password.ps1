@@ -149,7 +149,7 @@ function Update-Pwd {
 
         try {
             Set-Item -Path DellSmbios:\Security\AdminPassword "$NewPwd" -Password "$($item.Value)" -ErrorAction Stop
-            Write-Log -Mensagem "Senha $NewSecretName definida com sucesso, utilizando $($item.Name) como senha anterior." -Componente "Atualizar Senha" -Classificacao Informação
+            Write-Log -Mensagem "Senha $NewSecretName foi definida com sucesso, utilizando $($item.Name) como senha anterior." -Componente "Atualizar Senha" -Classificacao Informação
 
             return $true
         }
@@ -179,8 +179,7 @@ function Set-Pwd {
 $IsPwdSet = Get-isPwdSet
 
 if ($IsPwdSet -eq "True") {
-    Write-Log -Mensagem "A senha da BIOS já está configurada. Iniciando o processo de atualização." -Componente "Atualizar Senha" -Classificacao Informação
-
+    
     $UpdateStatus = Update-Pwd
 
     if ($UpdateStatus -eq $true) {
