@@ -1,0 +1,6 @@
+python-dotenv
+pdfplumber
+requests
+azure-core
+azure-ai-textanalytics
+gradio
