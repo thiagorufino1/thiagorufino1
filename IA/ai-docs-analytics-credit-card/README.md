@@ -6,7 +6,7 @@ Este aplicativo foi desenvolvido para identificar informações de cartões de c
 
 O sistema utiliza o recurso **Document Intelligence** do **Azure AI** para analisar os documentos e extrair as informações dos cartões de crédito, como o nome do titular, número do cartão, data de validade e banco emissor.
 
-![App](Img/app.png)
+![App](Img/App.png)
 
 ## Requisitos
 
