@@ -1,225 +1,202 @@
 # MS Agent Framework + Copilot Studio
 
-Orquestrador serverless em Python que usa o **Microsoft Agent Framework** como supervisor e roteia conversas para agentes especializados do **Microsoft Copilot Studio** via Direct Line, mantendo contexto de sessão contínuo no terminal.
+Orquestrador em Python para terminal que usa o Microsoft Agent Framework como supervisor e delega perguntas para agentes especializados do Microsoft Copilot Studio via Direct Line.
 
-## 🏗️ Arquitetura
+## Visao geral
 
-**Estrutura de Roteamento:**
 ```text
-app.py  (CLI interativo)
-  └── AgentRouter  (supervisor – agent-framework + Azure OpenAI)
-        ├── Tool Dinâmica 1 → CopilotClient → Direct Line → Agente 1 (Ex: RH)
-        └── Tool Dinâmica 2 → CopilotClient → Direct Line → Agente 2 (Ex: TI)
+app.py
+  -> AgentRouter
+       -> tools dinamicas geradas a partir do registro de agentes
+            -> CopilotClient
+                 -> Direct Line
+                      -> agente do Copilot Studio
 ```
 
-**Diagrama de Fluxo:**
-```mermaid
-graph TD
-    User([Usuário - Interface Terminal/Rich]) -->|Input CLI| App[app.py]
-    App -->|Orquestração| Router[AgentRouter<br/>Supervisor / Azure OpenAI]
-    
-    subgraph Criação Dinâmica de Tools
-        Router -->|Tool 1| Client1[CopilotClient]
-        Router -->|Tool N| Client2[CopilotClient]
-    end
-    
-    Client1 -->|Direct Line| Agent1[Agente Microsoft Copilot Studio<br/>Ex: RH]
-    Client2 -->|Direct Line| Agent2[Agente Microsoft Copilot Studio<br/>Ex: TI]
-```
+Componentes principais:
 
 | Arquivo | Responsabilidade |
 |---|---|
-| `app.py` | Loop de chat interativo com Rich (UI, streaming de status) |
-| `core/router.py` | Supervisor que decide qual agente chamar |
-| `core/tools/copilot_tools.py` | Fábrica de tools registradas dinamicamente no supervisor |
-| `core/copilot_client.py` | Cliente Direct Line (conversationId + watermark persistidos por sessão) |
-| `core/session_store.py` | Store em memória de sessões do orquestrador |
-| `core/config.py` | Leitura e validação de variáveis para registro dinâmico ou estático |
+| `app.py` | CLI interativo com Rich |
+| `core/router.py` | Supervisor, sessao do Agent Framework e roteamento |
+| `core/tools/copilot_tools.py` | Fabrica de tools dinamicas para cada agente |
+| `core/copilot_client.py` | Cliente Direct Line com retry, polling e reuse de conexao |
+| `core/session_store.py` | Estado de sessao do orquestrador |
+| `core/config.py` | Leitura de variaveis de ambiente e registro de agentes |
 
----
+## Como funciona
 
-## ⚙️ Pré-requisitos
+1. O usuario envia uma pergunta no terminal.
+2. O supervisor do Agent Framework decide qual tool especializada chamar.
+3. Cada tool usa o `CopilotClient` para conversar com um agente do Copilot Studio via Direct Line.
+4. O estado da conversa com cada agente e mantido por sessao.
+5. A resposta do especialista volta para o supervisor, que organiza a saida final.
+
+O registro de agentes e dinamico. Se `COPILOT_AGENTS` estiver definido, as tools sao geradas a partir dessa lista. Se nao estiver, o projeto entra em modo legado com RH e TI.
+
+## Pre-requisitos
 
 - Python 3.11+
-- Acesso ao **Azure OpenAI** (recurso + deployment GPT-4o ou superior)
-- Dois agentes publicados no **Microsoft Copilot Studio** com canal Direct Line ativado
+- Recurso Azure OpenAI com deployment configurado
+- Um ou mais agentes publicados no Microsoft Copilot Studio com canal Direct Line habilitado
 
----
+## Azure OpenAI
 
-## 1. ☁️ Azure OpenAI – Criar recurso e deployment
+O projeto usa `OpenAIChatClient` do Microsoft Agent Framework com `azure_endpoint`, `api_key` e `model`. Essa forma esta alinhada com a documentacao atual do framework para clientes OpenAI/Azure OpenAI.
 
-### 1.1 Criar o recurso Azure OpenAI
+Variaveis obrigatorias:
 
-1. Acesse o [Azure Portal](https://portal.azure.com) e clique em **Create a resource**.
-2. Pesquise por **Azure OpenAI** e clique em **Create**.
-3. Preencha:
-   - **Subscription**: sua assinatura
-   - **Resource group**: crie um novo ou use existente
-   - **Region**: selecione uma região com disponibilidade do modelo desejado (ex: `East US 2`)
-   - **Name**: nome único para o recurso (ex: `meu-openai-rh`)
-   - **Pricing tier**: `Standard S0`
-4. Clique em **Review + create** → **Create**.
+- `AZURE_OPENAI_API_KEY`
+- `AZURE_OPENAI_ENDPOINT`
+- `AZURE_OPENAI_DEPLOYMENT_NAME`
 
-### 1.2 Criar o deployment do modelo
+Observacao: a documentacao atual do Agent Framework tambem destaca fluxos com credenciais Entra ID e `AzureOpenAIResponsesClient`. Este projeto, hoje, usa `OpenAIChatClient` com chave.
 
-1. Acesse o recurso criado → clique em **Go to Azure OpenAI Studio** (ou acesse `https://oai.azure.com`).
-2. No menu lateral, acesse **Deployments** → **Create new deployment**.
-3. Preencha:
-   - **Model**: selecione `gpt-4o` (ou `gpt-4o-mini` para custo menor)
-   - **Deployment name**: anote este nome — ele vai para `AZURE_OPENAI_DEPLOYMENT_NAME`
-4. Clique em **Create**.
+## Copilot Studio
 
-### 1.3 Obter endpoint e API key
+Para cada agente:
 
-1. No [Azure Portal](https://portal.azure.com), abra seu recurso Azure OpenAI.
-2. No menu lateral, acesse **Keys and Endpoint**.
-3. Copie:
-   - **KEY 1** → `AZURE_OPENAI_API_KEY`
-   - **Endpoint** → `AZURE_OPENAI_ENDPOINT` (formato: `https://<nome>.openai.azure.com/`)
+1. Crie ou abra o agente no Copilot Studio.
+2. Publique o agente.
+3. Ative o canal Direct Line.
+4. Guarde o secret do canal.
 
-> **Alternativa com App Registration (Entra ID)**
->
-> Se preferir autenticação via identidade gerenciada ou service principal em vez de API key:
->
-> 1. No [Azure Portal](https://portal.azure.com), acesse **Microsoft Entra ID** → **App registrations** → **New registration**.
-> 2. Preencha **Name** (ex: `agent-framework-sp`) e clique em **Register**.
-> 3. Anote o **Application (client) ID** e o **Directory (tenant) ID**.
-> 4. Acesse **Certificates & secrets** → **New client secret** → copie o valor gerado.
-> 5. No recurso Azure OpenAI, acesse **Access control (IAM)** → **Add role assignment**.
-> 6. Atribua o role **Cognitive Services OpenAI User** ao service principal criado.
-> 7. Substitua `AZURE_OPENAI_API_KEY` pela autenticação via `DefaultAzureCredential` (requer ajuste no código e instalação do pacote `azure-identity`).
+## Configuracao
 
----
+Copie o arquivo de exemplo:
 
-## 2. 🤖 Microsoft Copilot Studio – Configurar os agentes
-
-Repita este processo para cada agente (RH e TI).
-
-### 2.1 Criar e publicar o agente
-
-1. Acesse o [Microsoft Copilot Studio](https://copilotstudio.microsoft.com).
-2. Selecione o **ambiente Power Platform** correto (canto superior direito).
-3. Clique em **Create** → escolha um template ou **New agent**.
-4. Configure tópicos, conhecimento e instruções do agente.
-5. Clique em **Publish** (canto superior direito) para disponibilizar o agente.
-
-> O agente **precisa estar publicado** para receber mensagens via Direct Line.
-
-### 2.2 Ativar o canal Direct Line
-
-1. No agente publicado, acesse **Settings** (ícone de engrenagem) → **Channels**.
-2. Localize o canal **Direct Line** e clique nele.
-3. Clique em **Enable** / **Add channel** (se ainda não estiver ativo).
-4. Copie o **Secret Key** exibido → este é o valor de `DIRECT_LINE_SECRET_RH` (ou `_TI`).
-
-> O secret é exibido uma única vez. Guarde-o com segurança. Se perder, gere um novo clicando em **Regenerate**.
-
-### 2.3 Configurações recomendadas no agente
-
-| Configuração | Recomendação |
-|---|---|
-| **Linguagem** | Defina o idioma padrão (ex: Português) em Settings → General |
-| **Authentication** | Defina como **No authentication** para uso server-to-server via Direct Line |
-| **Idle session timeout** | Aumente para 30+ min se conversas forem longas (Settings → General) |
-| **Allow escalation** | Desative se não houver handoff humano configurado |
-| **Fallback topic** | Personalize a mensagem de erro/fallback para respostas mais úteis |
-
----
-
-## 3. 🔐 Variáveis de ambiente
-
-Copie `.env.example` para `.env` e preencha todos os valores:
+```powershell
+Copy-Item .env.example .env
+```
 
 ```bash
 cp .env.example .env
 ```
 
-| Variável | Obrigatória | Descrição |
+### Modo dinamico
+
+Exemplo com tres agentes:
+
+```dotenv
+COPILOT_AGENTS="RH,TI,JURIDICO"
+
+COPILOT_RH_DIRECT_LINE_SECRET="..."
+COPILOT_RH_NAME="Copilot RH"
+COPILOT_RH_DEPARTMENT="RH"
+COPILOT_RH_DESCRIPTION="Use for HR requests such as vacations and payslips."
+
+COPILOT_TI_DIRECT_LINE_SECRET="..."
+COPILOT_TI_NAME="Copilot TI"
+COPILOT_TI_DEPARTMENT="TI"
+COPILOT_TI_DESCRIPTION="Use for IT requests such as password reset and VPN."
+
+COPILOT_JURIDICO_DIRECT_LINE_SECRET="..."
+COPILOT_JURIDICO_NAME="Agente Juridico"
+COPILOT_JURIDICO_DEPARTMENT="Legal"
+COPILOT_JURIDICO_DESCRIPTION="Use for legal and compliance requests."
+```
+
+### Modo legado
+
+Se `COPILOT_AGENTS` nao estiver definido, o projeto usa:
+
+```dotenv
+DIRECT_LINE_SECRET_RH="..."
+DIRECT_LINE_SECRET_TI="..."
+```
+
+## Variaveis de ambiente
+
+| Variavel | Obrigatoria | Descricao |
 |---|---|---|
-| `AZURE_OPENAI_API_KEY` | Sim | API key do recurso Azure OpenAI |
-| `AZURE_OPENAI_ENDPOINT` | Sim | Endpoint do recurso (`https://<nome>.openai.azure.com/`) |
-| `AZURE_OPENAI_DEPLOYMENT_NAME` | Sim | Nome do deployment criado (ex: `gpt-4o`) |
-| `COPILOT_AGENTS` | Não | Lista de identificadores de agentes separados por vírgula para modo dinâmico multi-agente (ex: `RH,TI,JURIDICO`). Se passado, habilita configuração dinâmica baseada no ID de cada um. |
-| `COPILOT_<ID>_DIRECT_LINE_SECRET` | Depende | Secret do canal Direct Line do agente correspondente `ID`. Em modo legado/retrocompatibilidade, usa-se `DIRECT_LINE_SECRET_RH` e `DIRECT_LINE_SECRET_TI` para preenchimento. |
-| `COPILOT_<ID>_NAME` | Não | Nome de exibição do agente respectivo. Padrões suportados como *retro-legado*: `COPILOT_RH_NAME` e `COPILOT_TI_NAME`. |
-| `POWER_PLATFORM_ENV_<ID>` | Não | ID do ambiente Power Platform do agente (informativo). Suportes avulsos legados operam via `POWER_PLATFORM_ENV_RH` ou TI. |
-| `DIRECT_LINE_TIMEOUT_SEC` | Não | Timeout (s) para aguardar resposta do agente (padrão: `45`) |
-| `DIRECT_LINE_POLL_INTERVAL_SEC` | Não | Intervalo (s) entre polls ao Direct Line (padrão: `2.0`) |
-| `DEBUG_MODE` | Não | Ativa logs detalhados e timeline de agentes (padrão: `false`) |
-| `STRUCTURED_LOGGING` | Não | Ativa formatação das mensagens do logging em formato JSON com inline unificado para ingestão fácil no *App Insights* ou *Azure Monitor*. (padrão: `false`) |
+| `AZURE_OPENAI_API_KEY` | Sim | Chave do Azure OpenAI |
+| `AZURE_OPENAI_ENDPOINT` | Sim | Endpoint do recurso Azure OpenAI |
+| `AZURE_OPENAI_DEPLOYMENT_NAME` | Sim | Nome do deployment/modelo |
+| `COPILOT_AGENTS` | Nao | Lista separada por virgula para registro dinamico |
+| `COPILOT_<ID>_DIRECT_LINE_SECRET` | Depende | Secret Direct Line do agente |
+| `COPILOT_<ID>_NAME` | Nao | Nome exibido no CLI |
+| `COPILOT_<ID>_DEPARTMENT` | Nao | Rotulo do departamento |
+| `COPILOT_<ID>_DESCRIPTION` | Nao | Descricao da tool usada pelo supervisor |
+| `POWER_PLATFORM_ENV_<ID>` | Nao | Id do ambiente Power Platform, apenas informativo |
+| `DIRECT_LINE_SECRET_RH` | Legado | Secret do agente RH no modo legado |
+| `DIRECT_LINE_SECRET_TI` | Legado | Secret do agente TI no modo legado |
+| `DIRECT_LINE_TIMEOUT_SEC` | Nao | Timeout total de polling por resposta |
+| `DIRECT_LINE_POLL_INTERVAL_SEC` | Nao | Intervalo entre polls |
+| `DEBUG_MODE` | Nao | Ativa logs verbosos e timeline extra |
+| `STRUCTURED_LOGGING` | Nao | Emite logs em JSON |
 
----
-
-## 4. 📦 Instalação
+## Instalacao
 
 ```bash
-# 1. Criar e ativar ambiente virtual
 python -m venv .venv
+```
 
-# Windows
+Windows:
+
+```powershell
 .venv\Scripts\activate
+```
 
-# Linux / macOS
+Linux/macOS:
+
+```bash
 source .venv/bin/activate
+```
 
-# 2. Instalar dependências (modo editável para desenvolvimento)
+Instale o pacote:
+
+```bash
 pip install -e .
+```
 
-# Para instalar também as dependências de dev (pytest, mock, respx):
+Dependencias de desenvolvimento:
+
+```bash
 pip install -e ".[dev]"
 ```
 
-**Dependências principais** (declaradas em `pyproject.toml`):
+## Execucao
 
-| Pacote | Versão mínima | Função |
-|---|---|---|
-| `httpx` | 0.27.0 | Cliente HTTP async para Direct Line |
-| `python-dotenv` | 1.0.1 | Leitura do arquivo `.env` |
-| `agent-framework` | 1.0.0 | Supervisor LLM com suporte a tools |
-| `rich` | 13.0.0 | Interface de terminal com cores e spinners |
+Windows:
 
----
+```powershell
+.venv\Scripts\python app.py
+```
 
-## 5. 🚀 Executar
+Linux/macOS:
 
 ```bash
-# Windows
-.venv\Scripts\python app.py
-
-# Linux / macOS
 .venv/bin/python app.py
 ```
 
-### Comandos disponíveis no terminal
+Comandos do terminal:
 
-| Comando | Descrição |
+| Comando | Descricao |
 |---|---|
-| `/help` | Lista todos os comandos |
-| `/agents` | Exibe os agentes registrados e seus ambientes |
-| `/status` | JSON completo da sessão atual |
-| `/debug` | Últimas respostas brutas de cada agente |
-| `/activities` | Atividades Direct Line brutas por agente |
-| `/timeline` | Timeline de chamadas a agentes na sessão |
-| `/reset` | Reinicia a sessão (nova conversa com os agentes) |
-| `/session <id>` | Troca para outra sessão (cria se não existir) |
+| `/help` | Lista os comandos |
+| `/agents` | Mostra os agentes registrados |
+| `/status` | Exibe o estado completo da sessao atual |
+| `/debug` | Mostra as ultimas respostas brutas dos subagentes |
+| `/activities` | Mostra as atividades Direct Line capturadas |
+| `/timeline` | Mostra a timeline de chamadas aos agentes |
+| `/reset` | Reinicia a sessao atual |
+| `/session <id>` | Troca para outra sessao |
 | `/exit` | Encerra o chat |
 
----
+## Limites atuais
 
-## 6. 🛣️ Como o roteamento funciona
+- O storage padrao de sessao e em memoria.
+- A integracao e server-to-server via Direct Line, sem autenticacao do usuario final.
+- O projeto e focado em CLI; nao expoe endpoint HTTP.
 
-O supervisor (Azure OpenAI) recebe a mensagem do usuário e decide automaticamente qual *tool* dinâmica do agente chamar (instanciado em runtime com base no seu `COPILOT_AGENTS` do ambiente):
+## Observacoes de implementacao
 
-- Quando gerado dinamicamente via registro listado pelo .env, o *AgentRouter* carrega e converte em ferramental de IA, permitindo inferir qual deve lidar diretamente com a pauta.
-- Exemplo com RH/TI retrocompatíveis: roteia para RH em termos de férias, holerite e política; para TI com redes e VPNs.
-- **Ambas em sequência** → quando a mensagem mistura assuntos variados (ex. acesso a software de ponto corporativo), as chamadas aos *endpoints* se encadeiam.
+- O supervisor gera tools dinamicas a partir do registro carregado por ambiente.
+- O `CopilotClient` reutiliza `httpx.AsyncClient` para pooling de conexoes.
+- No `reset` da sessao e no encerramento do app, os clientes HTTP sao fechados explicitamente.
 
-A resposta do sub-agente especialista é preservada da sua originalidade do PowerPlatform e devolvido com acréscimo de pontuações de conector, o supervisor apenas organiza as repostas e não sofre alucinação grave inventando os resultados para cobrir o trabalho da ponta especialista de sua malha de *Direct Line*.
+## Referencias consultadas
 
----
-
-## 🛑 Limitações desta versão
-
-- Sessões mantidas apenas em memória efêmera. (Podem ser perdidas ao reiniciar; entretanto a abstração no `core/session_store.py` pelo `AbstractSessionStore` prevê a injeção nativa customizada futura de banco de rede como Azure Table/Redis para ambientes de produção).
-- Integração via Direct Line server-to-server (sem SSO/autenticação de usuário final).
-- Sem endpoint HTTP de api interativa ou webhook exposto — uso prático focado em uso via CLI.
+- Microsoft Agent Framework Python README: https://github.com/microsoft/agent-framework/blob/main/python/README.md
+- Agent Framework OpenAI package README: https://github.com/microsoft/agent-framework/blob/main/python/packages/openai/README.md
+- HTTPX async docs: https://github.com/encode/httpx/blob/master/docs/async.md

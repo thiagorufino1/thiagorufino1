@@ -13,6 +13,7 @@ Changes from the previous version
 - ``describe_session`` exposes ``latency_ms`` in the tool events snapshot.
 """
 
+import asyncio
 import logging
 import os
 
@@ -29,19 +30,25 @@ from core.tools.copilot_tools import (
 
 logger = logging.getLogger(__name__)
 
-SUPERVISOR_INSTRUCTIONS = (
-    "You are an internal support supervisor running as a continuous chat. "
-    "Your job is to decide when to call the HR agent, when to call the IT agent, "
-    "and when to call both in sequence. "
-    "Always prioritise the specialist agent's response. "
-    "When a tool returns a useful answer, preserve the main content and avoid "
-    "rewriting, summarising, or replacing it with your own knowledge. "
-    "You may briefly introduce or connect responses. "
-    "Only supplement with your own knowledge when a tool fails, returns empty "
-    "content, or clearly insufficient information. "
-    "If the answer is already clear from session context, maintain continuity "
-    "without asking the user to repeat the question."
-)
+def _build_supervisor_instructions(agent_registry: dict[str, object]) -> str:
+    agent_list = ", ".join(
+        f"{key.replace('AGENT_', '')} ({getattr(cfg, 'department', 'unknown')})"
+        for key, cfg in agent_registry.items()
+    )
+    return (
+        "You are an internal support supervisor running as a continuous chat. "
+        "Decide which specialist tool should handle each request and call one or "
+        "more tools when needed. "
+        f"The currently available specialist agents are: {agent_list}. "
+        "Always prioritise the specialist agent's response. "
+        "When a tool returns a useful answer, preserve the main content and avoid "
+        "rewriting, summarising, or replacing it with your own knowledge. "
+        "You may briefly introduce or connect responses from multiple agents. "
+        "Only supplement with your own knowledge when a tool fails, returns empty "
+        "content, or clearly insufficient information. "
+        "If the answer is already clear from session context, maintain continuity "
+        "without asking the user to repeat the question."
+    )
 
 
 class AgentRouter:
@@ -76,7 +83,7 @@ class AgentRouter:
         )
         self.agent = self.client.as_agent(
             name="Copilot Studio Supervisor",
-            instructions=SUPERVISOR_INSTRUCTIONS,
+            instructions=_build_supervisor_instructions(self.agent_registry),
             tools=tools,
         )
         logger.info(
@@ -98,8 +105,44 @@ class AgentRouter:
         self.session_store.save(session)
         return session
 
-    def reset_session(self, session_id: str) -> OrchestratorSession:
+    async def _close_session_resources(self, session: OrchestratorSession) -> None:
+        clients = list(session.copilot_clients.values())
+        if not clients:
+            return
+        await asyncio.gather(
+            *(client.aclose() for client in clients if hasattr(client, "aclose")),
+            return_exceptions=True,
+        )
+
+    async def close_session(self, session_id: str) -> None:
+        session = self.session_store.get(session_id)
+        if session is None:
+            return
+        await self._close_session_resources(session)
         self.session_store.delete(session_id)
+
+    async def shutdown(self) -> None:
+        sessions = [
+            session_id
+            for session_id in list(getattr(self.session_store, "_sessions", {}).keys())
+        ]
+        for session_id in sessions:
+            await self.close_session(session_id)
+
+    def reset_session(self, session_id: str) -> OrchestratorSession:
+        session = self.session_store.get(session_id)
+        if session is not None:
+            try:
+                loop = asyncio.get_running_loop()
+            except RuntimeError:
+                asyncio.run(self._close_session_resources(session))
+            else:
+                loop.create_task(self._close_session_resources(session))
+        self.session_store.delete(session_id)
+        return self.get_or_create_session(session_id)
+
+    async def reset_session_async(self, session_id: str) -> OrchestratorSession:
+        await self.close_session(session_id)
         return self.get_or_create_session(session_id)
 
     # ── Introspection ─────────────────────────────────────────────────────────

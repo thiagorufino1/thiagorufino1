@@ -195,7 +195,7 @@ async def interactive_chat() -> None:
             _print_agent_timeline(router.describe_session(session_id)["tool_events"])
             continue
         if user_input == "/reset":
-            router.reset_session(session_id)
+            await router.reset_session_async(session_id)
             console.print(f"\n[bold yellow]Session Reset[/]  {session_id}\n")
             continue
         if user_input.startswith("/session "):
@@ -222,6 +222,8 @@ async def interactive_chat() -> None:
             _print_agent_timeline(router.describe_session(session_id)["tool_events"][before:])
 
         _print_supervisor(response)
+
+    await router.shutdown()
 
 
 if __name__ == "__main__":
