@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ms-agent-framework-copilot-studio"
+version = "0.1.0"
+description = "Agente Orquestrador Serverless para roteamento Inteligente inter-sistemas do Microsoft Copilot Studio via Agent Framework da Microsoft."
+authors = [
+    {name = "Thiago Rufino"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.27.0",
+    "python-dotenv>=1.0.1",
+    "agent-framework>=1.0.0",
+    "rich>=13.0.0",
+    "tenacity>=8.2.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-mock>=3.14.0",
+    "respx>=0.21.0",
+    "black>=24.0.0"
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
