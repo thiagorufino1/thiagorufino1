@@ -2,12 +2,12 @@
 
 Orquestrador em Python para terminal que usa o Microsoft Agent Framework como supervisor e delega perguntas para agentes especializados do Microsoft Copilot Studio via Direct Line.
 
-## Visao geral
+## Visão geral
 
 ```text
 app.py
   -> AgentRouter
-       -> tools dinamicas geradas a partir do registro de agentes
+       -> tools dinâmicas geradas a partir do registro de agentes
             -> CopilotClient
                  -> Direct Line
                       -> agente do Copilot Studio
@@ -18,23 +18,23 @@ Componentes principais:
 | Arquivo | Responsabilidade |
 |---|---|
 | `app.py` | CLI interativo com Rich |
-| `core/router.py` | Supervisor, sessao do Agent Framework e roteamento |
-| `core/tools/copilot_tools.py` | Fabrica de tools dinamicas para cada agente |
-| `core/copilot_client.py` | Cliente Direct Line com retry, polling e reuse de conexao |
-| `core/session_store.py` | Estado de sessao do orquestrador |
-| `core/config.py` | Leitura de variaveis de ambiente e registro de agentes |
+| `core/router.py` | Supervisor, sessão do Agent Framework e roteamento |
+| `core/tools/copilot_tools.py` | Fábrica de tools dinâmicas para cada agente |
+| `core/copilot_client.py` | Cliente Direct Line com retry, polling e reuse de conexão |
+| `core/session_store.py` | Estado de sessão do orquestrador |
+| `core/config.py` | Leitura de variáveis de ambiente e registro de agentes |
 
 ## Como funciona
 
-1. O usuario envia uma pergunta no terminal.
+1. O usuário envia uma pergunta no terminal.
 2. O supervisor do Agent Framework decide qual tool especializada chamar.
 3. Cada tool usa o `CopilotClient` para conversar com um agente do Copilot Studio via Direct Line.
-4. O estado da conversa com cada agente e mantido por sessao.
-5. A resposta do especialista volta para o supervisor, que organiza a saida final.
+4. O estado da conversa com cada agente é mantido por sessão.
+5. A resposta do especialista volta para o supervisor, que organiza a saída final.
 
-O registro de agentes e dinamico. Se `COPILOT_AGENTS` estiver definido, as tools sao geradas a partir dessa lista. Se nao estiver, o projeto entra em modo legado com RH e TI.
+O registro de agentes é dinâmico. Se `COPILOT_AGENTS` estiver definido, as tools são geradas a partir dessa lista. Se não estiver, o projeto entra em modo legado com RH e TI.
 
-## Pre-requisitos
+## Pré-requisitos
 
 - Python 3.11+
 - Recurso Azure OpenAI com deployment configurado
@@ -42,15 +42,15 @@ O registro de agentes e dinamico. Se `COPILOT_AGENTS` estiver definido, as tools
 
 ## Azure OpenAI
 
-O projeto usa `OpenAIChatClient` do Microsoft Agent Framework com `azure_endpoint`, `api_key` e `model`. Essa forma esta alinhada com a documentacao atual do framework para clientes OpenAI/Azure OpenAI.
+O projeto usa `OpenAIChatClient` do Microsoft Agent Framework com `azure_endpoint`, `api_key` e `model`. Essa forma está alinhada com a documentação atual do framework para clientes OpenAI/Azure OpenAI.
 
-Variaveis obrigatorias:
+Variáveis obrigatórias:
 
 - `AZURE_OPENAI_API_KEY`
 - `AZURE_OPENAI_ENDPOINT`
 - `AZURE_OPENAI_DEPLOYMENT_NAME`
 
-Observacao: a documentacao atual do Agent Framework tambem destaca fluxos com credenciais Entra ID e `AzureOpenAIResponsesClient`. Este projeto, hoje, usa `OpenAIChatClient` com chave.
+Observação: a documentação atual do Agent Framework também destaca fluxos com credenciais Entra ID e `AzureOpenAIResponsesClient`. Este projeto, hoje, usa `OpenAIChatClient` com chave.
 
 ## Copilot Studio
 
@@ -61,7 +61,7 @@ Para cada agente:
 3. Ative o canal Direct Line.
 4. Guarde o secret do canal.
 
-## Configuracao
+## Configuração
 
 Copie o arquivo de exemplo:
 
@@ -73,9 +73,9 @@ Copy-Item .env.example .env
 cp .env.example .env
 ```
 
-### Modo dinamico
+### Modo dinâmico
 
-Exemplo com tres agentes:
+Exemplo com três agentes:
 
 ```dotenv
 COPILOT_AGENTS="RH,TI,JURIDICO"
@@ -98,34 +98,34 @@ COPILOT_JURIDICO_DESCRIPTION="Use for legal and compliance requests."
 
 ### Modo legado
 
-Se `COPILOT_AGENTS` nao estiver definido, o projeto usa:
+Se `COPILOT_AGENTS` não estiver definido, o projeto usa:
 
 ```dotenv
 DIRECT_LINE_SECRET_RH="..."
 DIRECT_LINE_SECRET_TI="..."
 ```
 
-## Variaveis de ambiente
+## Variáveis de ambiente
 
-| Variavel | Obrigatoria | Descricao |
+| Variável | Obrigatória | Descrição |
 |---|---|---|
 | `AZURE_OPENAI_API_KEY` | Sim | Chave do Azure OpenAI |
 | `AZURE_OPENAI_ENDPOINT` | Sim | Endpoint do recurso Azure OpenAI |
 | `AZURE_OPENAI_DEPLOYMENT_NAME` | Sim | Nome do deployment/modelo |
-| `COPILOT_AGENTS` | Nao | Lista separada por virgula para registro dinamico |
+| `COPILOT_AGENTS` | Não | Lista separada por vírgula para registro dinâmico |
 | `COPILOT_<ID>_DIRECT_LINE_SECRET` | Depende | Secret Direct Line do agente |
-| `COPILOT_<ID>_NAME` | Nao | Nome exibido no CLI |
-| `COPILOT_<ID>_DEPARTMENT` | Nao | Rotulo do departamento |
-| `COPILOT_<ID>_DESCRIPTION` | Nao | Descricao da tool usada pelo supervisor |
-| `POWER_PLATFORM_ENV_<ID>` | Nao | Id do ambiente Power Platform, apenas informativo |
+| `COPILOT_<ID>_NAME` | Não | Nome exibido no CLI |
+| `COPILOT_<ID>_DEPARTMENT` | Não | Rótulo do departamento |
+| `COPILOT_<ID>_DESCRIPTION` | Não | Descrição da tool usada pelo supervisor |
+| `POWER_PLATFORM_ENV_<ID>` | Não | Id do ambiente Power Platform, apenas informativo |
 | `DIRECT_LINE_SECRET_RH` | Legado | Secret do agente RH no modo legado |
 | `DIRECT_LINE_SECRET_TI` | Legado | Secret do agente TI no modo legado |
-| `DIRECT_LINE_TIMEOUT_SEC` | Nao | Timeout total de polling por resposta |
+| `DIRECT_LINE_TIMEOUT_SEC` | Não | Timeout total de polling por resposta |
 | `DIRECT_LINE_POLL_INTERVAL_SEC` | Nao | Intervalo entre polls |
-| `DEBUG_MODE` | Nao | Ativa logs verbosos e timeline extra |
-| `STRUCTURED_LOGGING` | Nao | Emite logs em JSON |
+| `DEBUG_MODE` | Não | Ativa logs verbosos e timeline extra |
+| `STRUCTURED_LOGGING` | Não | Emite logs em JSON |
 
-## Instalacao
+## Instalação
 
 ```bash
 python -m venv .venv
@@ -149,13 +149,13 @@ Instale o pacote:
 pip install -e .
 ```
 
-Dependencias de desenvolvimento:
+Dependências de desenvolvimento:
 
 ```bash
 pip install -e ".[dev]"
 ```
 
-## Execucao
+## Execução
 
 Windows:
 
@@ -171,31 +171,31 @@ Linux/macOS:
 
 Comandos do terminal:
 
-| Comando | Descricao |
+| Comando | Descrição |
 |---|---|
 | `/help` | Lista os comandos |
 | `/agents` | Mostra os agentes registrados |
-| `/status` | Exibe o estado completo da sessao atual |
-| `/debug` | Mostra as ultimas respostas brutas dos subagentes |
+| `/status` | Exibe o estado completo da sessão atual |
+| `/debug` | Mostra as últimas respostas brutas dos subagentes |
 | `/activities` | Mostra as atividades Direct Line capturadas |
 | `/timeline` | Mostra a timeline de chamadas aos agentes |
-| `/reset` | Reinicia a sessao atual |
-| `/session <id>` | Troca para outra sessao |
+| `/reset` | Reinicia a sessão atual |
+| `/session <id>` | Troca para outra sessão |
 | `/exit` | Encerra o chat |
 
 ## Limites atuais
 
-- O storage padrao de sessao e em memoria.
-- A integracao e server-to-server via Direct Line, sem autenticacao do usuario final.
-- O projeto e focado em CLI; nao expoe endpoint HTTP.
+- O storage padrão de sessão é em memória.
+- A integração é server-to-server via Direct Line, sem autenticação do usuário final.
+- O projeto é focado em CLI; não expõe endpoint HTTP.
 
-## Observacoes de implementacao
+## Observações de implementação
 
-- O supervisor gera tools dinamicas a partir do registro carregado por ambiente.
-- O `CopilotClient` reutiliza `httpx.AsyncClient` para pooling de conexoes.
-- No `reset` da sessao e no encerramento do app, os clientes HTTP sao fechados explicitamente.
+- O supervisor gera tools dinâmicas a partir do registro carregado por ambiente.
+- O `CopilotClient` reutiliza `httpx.AsyncClient` para pooling de conexões.
+- No `reset` da sessão e no encerramento do app, os clientes HTTP são fechados explicitamente.
 
-## Referencias consultadas
+## Referências consultadas
 
 - Microsoft Agent Framework Python README: https://github.com/microsoft/agent-framework/blob/main/python/README.md
 - Agent Framework OpenAI package README: https://github.com/microsoft/agent-framework/blob/main/python/packages/openai/README.md
