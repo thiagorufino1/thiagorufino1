@@ -4,21 +4,21 @@ Orquestrador serverless em Python que usa o **Microsoft Agent Framework** como s
 
 ## Arquitetura
 
-```
+```text
 app.py  (CLI interativo)
   └── AgentRouter  (supervisor – agent-framework + Azure OpenAI)
-        ├── ask_rh_agent → CopilotClient → Direct Line → Agente RH (Power Platform)
-        └── ask_it_agent → CopilotClient → Direct Line → Agente TI (Power Platform)
+        ├── Tool Dinâmica 1 → CopilotClient → Direct Line → Agente 1 (Ex: RH)
+        └── Tool Dinâmica 2 → CopilotClient → Direct Line → Agente 2 (Ex: TI)
 ```
 
 | Arquivo | Responsabilidade |
 |---|---|
 | `app.py` | Loop de chat interativo com Rich (UI, streaming de status) |
 | `core/router.py` | Supervisor que decide qual agente chamar |
-| `core/copilot_tools.py` | Tools registradas no supervisor (`ask_rh_agent`, `ask_it_agent`) |
+| `core/tools/copilot_tools.py` | Fábrica de tools registradas dinamicamente no supervisor |
 | `core/copilot_client.py` | Cliente Direct Line (conversationId + watermark persistidos por sessão) |
 | `core/session_store.py` | Store em memória de sessões do orquestrador |
-| `core/config.py` | Leitura e validação de variáveis de ambiente |
+| `core/config.py` | Leitura e validação de variáveis para registro dinâmico ou estático |
 
 ---
 
@@ -123,15 +123,14 @@ cp .env.example .env
 | `AZURE_OPENAI_API_KEY` | Sim | API key do recurso Azure OpenAI |
 | `AZURE_OPENAI_ENDPOINT` | Sim | Endpoint do recurso (`https://<nome>.openai.azure.com/`) |
 | `AZURE_OPENAI_DEPLOYMENT_NAME` | Sim | Nome do deployment criado (ex: `gpt-4o`) |
-| `DIRECT_LINE_SECRET_RH` | Sim | Secret do canal Direct Line do agente de RH |
-| `DIRECT_LINE_SECRET_TI` | Sim | Secret do canal Direct Line do agente de TI |
-| `COPILOT_RH_NAME` | Não | Nome de exibição do agente RH (padrão: `Copilot RH`) |
-| `COPILOT_TI_NAME` | Não | Nome de exibição do agente TI (padrão: `Copilot TI`) |
-| `POWER_PLATFORM_ENV_RH` | Não | ID do ambiente Power Platform do agente RH (informativo) |
-| `POWER_PLATFORM_ENV_TI` | Não | ID do ambiente Power Platform do agente TI (informativo) |
+| `COPILOT_AGENTS` | Não | Lista de identificadores de agentes separados por vírgula para modo dinâmico multi-agente (ex: `RH,TI,JURIDICO`). Se passado, habilita configuração dinâmica baseada no ID de cada um. |
+| `COPILOT_<ID>_DIRECT_LINE_SECRET` | Depende | Secret do canal Direct Line do agente correspondente `ID`. Em modo legado/retrocompatibilidade, usa-se `DIRECT_LINE_SECRET_RH` e `DIRECT_LINE_SECRET_TI` para preenchimento. |
+| `COPILOT_<ID>_NAME` | Não | Nome de exibição do agente respectivo. Padrões suportados como *retro-legado*: `COPILOT_RH_NAME` e `COPILOT_TI_NAME`. |
+| `POWER_PLATFORM_ENV_<ID>` | Não | ID do ambiente Power Platform do agente (informativo). Suportes avulsos legados operam via `POWER_PLATFORM_ENV_RH` ou TI. |
 | `DIRECT_LINE_TIMEOUT_SEC` | Não | Timeout (s) para aguardar resposta do agente (padrão: `45`) |
 | `DIRECT_LINE_POLL_INTERVAL_SEC` | Não | Intervalo (s) entre polls ao Direct Line (padrão: `2.0`) |
 | `DEBUG_MODE` | Não | Ativa logs detalhados e timeline de agentes (padrão: `false`) |
+| `STRUCTURED_LOGGING` | Não | Ativa formatação das mensagens do logging em formato JSON com inline unificado para ingestão fácil no *App Insights* ou *Azure Monitor*. (padrão: `false`) |
 
 ---
 
@@ -150,7 +149,7 @@ source .venv/bin/activate
 # 2. Instalar dependências (modo editável para desenvolvimento)
 pip install -e .
 
-# Para instalar também as dependências de dev (pytest, black):
+# Para instalar também as dependências de dev (pytest, mock, respx):
 pip install -e ".[dev]"
 ```
 
@@ -193,19 +192,18 @@ pip install -e ".[dev]"
 
 ## 6. Como o roteamento funciona
 
-O supervisor (Azure OpenAI) recebe a mensagem do usuário e decide automaticamente qual tool chamar:
+O supervisor (Azure OpenAI) recebe a mensagem do usuário e decide automaticamente qual *tool* dinâmica do agente chamar (instanciado em runtime com base no seu `COPILOT_AGENTS` do ambiente):
 
-- **`ask_rh_agent`** → férias, holerite, benefícios, recrutamento, políticas de RH
-- **`ask_it_agent`** → senha, acesso, VPN, software, equipamentos, rede, impressoras
-- **Ambas em sequência** → quando a mensagem mistura assuntos de RH e TI
+- Quando gerado dinamicamente via registro listado pelo .env, o *AgentRouter* carrega e converte em ferramental de IA, permitindo inferir qual deve lidar diretamente com a pauta.
+- Exemplo com RH/TI retrocompatíveis: roteia para RH em termos de férias, holerite e política; para TI com redes e VPNs.
+- **Ambas em sequência** → quando a mensagem mistura assuntos variados (ex. acesso a software de ponto corporativo), as chamadas aos *endpoints* se encadeiam.
 
-A resposta do agente especialista é preservada; o supervisor apenas organiza ou conecta quando necessário.
+A resposta do sub-agente especialista é preservada da sua originalidade do PowerPlatform e devolvido com acréscimo de pontuações de conector, o supervisor apenas organiza as repostas e não sofre alucinação grave inventando os resultados para cobrir o trabalho da ponta especialista de sua malha de *Direct Line*.
 
 ---
 
 ## Limitações desta versão
 
-- Sessões mantidas apenas em memória (perdidas ao reiniciar).
+- Sessões mantidas apenas em memória efêmera. (Podem ser perdidas ao reiniciar; entretanto a abstração no `core/session_store.py` pelo `AbstractSessionStore` prevê a injeção nativa customizada futura de banco de rede como Azure Table/Redis para ambientes de produção).
 - Integração via Direct Line server-to-server (sem SSO/autenticação de usuário final).
-- Sem endpoint HTTP exposto — uso exclusivo via CLI.
-- Dois agentes fixos (RH e TI); para adicionar mais, edite `core/config.py` e registre novas tools em `core/copilot_tools.py`.
+- Sem endpoint HTTP de api interativa ou webhook exposto — uso prático focado em uso via CLI.
