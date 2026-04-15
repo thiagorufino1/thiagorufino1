@@ -35,4 +35,5 @@ Thumbs.db
 node_modules/
 devTools/playground/node_modules/
 devTools/*.log
+devTools/.playground.installInfo.json
 *.tmp
