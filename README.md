@@ -16,5 +16,4 @@
     <a href="#"><img src="https://img.shields.io/github/followers/thiagorufino1"/></a>
     <a href="#"><img src="https://img.shields.io/github/forks/thiagorufino1/thiagorufino1"/></a>
     <a href="#"><img src="https://img.shields.io/github/stars/thiagorufino1/thiagorufino1"/></a>
-    <a href="#"><img src="https://img.shields.io/github/repo-size/thiagorufino1/thiagorufino1"/></a>
 </p>
